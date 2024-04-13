@@ -1,7 +1,7 @@
 on:
   workflow_call:
     inputs:
-      python-versions:
+      python-version:
         description: "The python versions to run tox with."
         default: "['3.12']"
         type: string
@@ -9,6 +9,9 @@ on:
 jobs:
   tox:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ${{ fromJson(inputs.python-version) }}
 
     steps:
       - name: Check out the codebase.
@@ -17,7 +20,7 @@ jobs:
       - name: Set up python.
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ fromJson(inputs.python-versions) }}
+          python-version: ${{ matrix.python-version }}
 
       - name: Upgrade pip.
         run: >
