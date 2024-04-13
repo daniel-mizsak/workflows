@@ -5,6 +5,10 @@ on:
         description: "The python versions to run tox with."
         default: "['3.12']"
         type: string
+      codecov:
+        description: "Whether to run codecov after tests."
+        default: false
+        type: boolean
 
 jobs:
   tox:
@@ -33,3 +37,10 @@ jobs:
       - name: Run tests with tox.
         run: >
           tox
+
+      - name: Run codecov.
+        if: inputs.codecov && matrix.python-version == 3.12
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
