@@ -1,0 +1,39 @@
+on:
+  workflow_call:
+    inputs:
+      os:
+        description: "The operating system to run molecule on."
+        default: "ubuntu-latest"
+        type: string
+      python-version:
+        description: "The python version to run molecule with."
+        default: "3.12"
+        type: string
+
+jobs:
+  molecule:
+    runs-on: ${{ inputs.os }}
+
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v4
+
+      - name: Set up python.
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ inputs.python-version }}
+
+      - name: Upgrade pip.
+        run: >
+          python -m pip install --upgrade pip
+
+      - name: Install dependencies.
+        run: >
+          pip install -r requirements.txt
+
+      - name: Run molecule tests.
+        run: >
+          molecule test
+        env:
+          ANSIBLE_FORCE_COLOR: "1"
+          PY_COLORS: "1"
