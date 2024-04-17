@@ -1,10 +1,11 @@
 on:
   workflow_call:
     inputs:
-      repository-url:
-        description: "The URL of the repository to publish to PyPI."
+      environment:
+        description: "The environment to run the workflow in."
         required: true
         type: string
+
       python-version:
         description: "The python version to run pypi with."
         default: "3.12"
@@ -13,6 +14,8 @@ on:
 jobs:
   pypi:
     runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.environment }}
 
     steps:
       - name: Check out the codebase.
@@ -40,4 +43,4 @@ jobs:
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
-          repository-url: ${{ inputs.repository-url }}
+          repository-url: https://upload.pypi.org/legacy/
