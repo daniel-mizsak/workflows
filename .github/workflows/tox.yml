@@ -5,10 +5,16 @@ on:
         description: "The python versions to run tox with."
         default: "['3.12']"
         type: string
+
       codecov:
         description: "Whether to run codecov after tests."
         default: false
         type: boolean
+
+    secrets:
+      CODECOV_TOKEN:
+        description: "The token to use for codecov."
+        required: false
 
 jobs:
   tox:

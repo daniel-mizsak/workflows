@@ -11,6 +11,11 @@ on:
         default: "3.12"
         type: string
 
+    secrets:
+      PYPI_API_TOKEN:
+        description: "The token to use for PyPI."
+        required: true
+
 jobs:
   pypi:
     runs-on: ubuntu-latest
