@@ -5,9 +5,28 @@ on:
         description: "The operating system to run molecule on."
         default: "ubuntu-latest"
         type: string
+
       python-version:
         description: "The python version to run molecule with."
         default: "3.12"
+        type: string
+
+      yamllint:
+        description: "Whether to run yamllint."
+        default: false
+        type: boolean
+
+      yamllint-config:
+        description: "The yamllint configuration file to use."
+        type: string
+
+      ansible-lint:
+        description: "Whether to run ansible-lint."
+        default: false
+        type: boolean
+
+      ansible-lint-config:
+        description: "The ansible-lint configuration file to use."
         type: string
 
 jobs:
@@ -29,7 +48,25 @@ jobs:
 
       - name: Install dependencies.
         run: >
-          pip install -r requirements.txt
+          pip install ansible ansible-lint molecule molecule-plugins[docker]
+
+      - name: Run yamllint.
+        if: inputs.yamllint
+        run: |
+          if [ -z "${{ inputs.yamllint-config }}" ]; then
+            yamllint .
+          else
+            yamllint -c ${{ inputs.yamllint-config }} .
+          fi
+
+      - name: Run ansible-lint.
+        if: inputs.ansible-lint
+        run: |
+          if [ -z "${{ inputs.ansible-lint-config }}" ]; then
+            ansible-lint .
+          else
+            ansible-lint -c ${{ inputs.ansible-lint-config }} .
+          fi
 
       - name: Run molecule tests.
         run: >
