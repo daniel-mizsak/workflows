@@ -39,6 +39,10 @@ on:
         description: "The ansible-lint configuration file to use. Relative to the working directory."
         type: string
 
+    secrets:
+      VAULT_PASSWORD:
+        description: "The password used for ansible vault encryption."
+
 jobs:
   molecule:
     runs-on: ${{ inputs.os }}
@@ -81,10 +85,15 @@ jobs:
             ansible-lint --config-file ${{ inputs.ansible-lint-config }} --force-color
           fi
 
+      - name: Create vault password file.
+        run: >
+          echo "${{ secrets.VAULT_PASSWORD }}" > vault_password.txt
+
       - name: Run molecule tests.
         if: inputs.molecule
         run: >
           molecule test
         env:
           ANSIBLE_FORCE_COLOR: "1"
+          ANSIBLE_VAULT_PASSWORD_FILE: $GITHUB_WORKSPACE/${{ inputs.working-directory }}/vault_password.txt
           PY_COLORS: "1"
