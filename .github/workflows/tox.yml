@@ -1,11 +1,23 @@
 on:
   workflow_call:
     inputs:
+      # General
+      os:
+        description: "The operating system to run the workflow on."
+        default: "ubuntu-latest"
+        type: string
+
+      working-directory:
+        description: "The working directory to run the workflow in."
+        default: "."
+        type: string
+
       python-versions:
-        description: "The list of python versions to run tox with."
+        description: "The list of python versions to run the workflow with."
         default: "['3.12']"
         type: string
 
+      # Workflow specific
       codecov:
         description: "Whether to run codecov after tests."
         default: false
@@ -18,10 +30,13 @@ on:
 
 jobs:
   tox:
-    runs-on: ubuntu-latest
+    runs-on: ${{ inputs.os }}
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
     strategy:
       matrix:
-        python-version: ${{ fromJson(inputs.python-version) }}
+        python-version: ${{ fromJson(inputs.python-versions) }}
 
     steps:
       - name: Check out the codebase.

@@ -1,14 +1,28 @@
 on:
   workflow_call:
     inputs:
+      # General
+      os:
+        description: "The operating system to run the workflow on."
+        default: "ubuntu-latest"
+        type: string
+
+      working-directory:
+        description: "The working directory to run the workflow in."
+        default: "."
+        type: string
+
       python-version:
-        description: "The python version to run gh-pages with."
+        description: "The python version to run the workflow with."
         default: "3.12"
         type: string
 
 jobs:
   gh-pages:
-    runs-on: ubuntu-latest
+    runs-on: ${{ inputs.os }}
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
 
     steps:
       - name: Check out the codebase.

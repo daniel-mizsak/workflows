@@ -1,6 +1,7 @@
 on:
   workflow_call:
     inputs:
+      # General
       os:
         description: "The operating system to run the workflow on."
         default: "ubuntu-latest"
@@ -16,6 +17,7 @@ on:
         default: "3.12"
         type: string
 
+      # Workflow specific
       molecule:
         description: "Whether to run molecule."
         default: true
@@ -95,5 +97,5 @@ jobs:
           molecule test
         env:
           ANSIBLE_FORCE_COLOR: "1"
-          ANSIBLE_VAULT_PASSWORD_FILE: $GITHUB_WORKSPACE/${{ inputs.working-directory }}/vault_password.txt
+          ANSIBLE_VAULT_PASSWORD_FILE: vault_password.txt
           PY_COLORS: "1"
