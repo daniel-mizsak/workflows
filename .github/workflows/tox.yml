@@ -1,8 +1,8 @@
 on:
   workflow_call:
     inputs:
-      python-version:
-        description: "The python versions to run tox with."
+      python-versions:
+        description: "The list of python versions to run tox with."
         default: "['3.12']"
         type: string
 
