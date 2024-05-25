@@ -89,7 +89,7 @@ jobs:
 
       - name: Create vault password file.
         run: >
-          echo "${{ secrets.VAULT_PASSWORD }}" > vault_password.txt
+          echo "${{ secrets.VAULT_PASSWORD }}" > /vault_password.txt
 
       - name: Run molecule tests.
         if: inputs.molecule
@@ -97,5 +97,5 @@ jobs:
           molecule test
         env:
           ANSIBLE_FORCE_COLOR: "1"
-          ANSIBLE_VAULT_PASSWORD_FILE: vault_password.txt
+          ANSIBLE_VAULT_PASSWORD_FILE: /vault_password.txt
           PY_COLORS: "1"
