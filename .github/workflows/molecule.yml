@@ -1,74 +1,92 @@
 ---
-on:
-  workflow_call:
-    inputs:
-      # General
-      working-directory:
-        description: "The working directory to run the workflow in."
-        default: "./ansible"
-        type: string
+  on:
+    workflow_call:
+      inputs:
+        # General
+        working-directory:
+          description: "The working directory to run the workflow in."
+          default: "./ansible"
+          type: string
 
-      # Workflow specific
-      molecule:
-        description: "Whether to run molecule."
-        default: true
-        type: boolean
+        # Workflow specific
+        molecule:
+          description: "Whether to run molecule."
+          default: true
+          type: boolean
 
-      yamllint:
-        description: "Whether to run yamllint."
-        default: false
-        type: boolean
+        yamllint:
+          description: "Whether to run yamllint."
+          default: false
+          type: boolean
 
-      yamllint-config:
-        description: "The yamllint configuration file to use. Relative to the working directory."
-        type: string
+        yamllint-config:
+          description: "The yamllint configuration file to use. Relative to the working directory."
+          type: string
 
-      ansible-lint:
-        description: "Whether to run ansible-lint."
-        default: false
-        type: boolean
+        ansible-lint:
+          description: "Whether to run ansible-lint."
+          default: false
+          type: boolean
 
-      ansible-lint-config:
-        description: "The ansible-lint configuration file to use. Relative to the working directory."
-        type: string
+        ansible-lint-config:
+          description: "The ansible-lint configuration file to use. Relative to the working directory."
+          type: string
 
-    secrets:
-      VAULT_PASSWORD:
-        description: "The password used for ansible vault encryption."
+      secrets:
+        VAULT_PASSWORD:
+          description: "The password used for ansible vault encryption."
 
-jobs:
-  molecule:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ${{ inputs.working-directory }}
+  jobs:
+    molecule:
+      runs-on: ubuntu-latest
+      defaults:
+        run:
+          working-directory: ${{ inputs.working-directory }}
 
-    steps:
-      - name: Check out the codebase.
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      steps:
+        - name: Check out the codebase.
+          uses: actions/checkout@v4
 
-      - name: Create vault password file.
-        if: inputs.molecule
-        run: >
-          echo "${{ secrets.VAULT_PASSWORD }}" > $GITHUB_WORKSPACE/${{ inputs.working-directory }}/vault_password.txt
+        - name: Set up python.
+          uses: actions/setup-python@v5
+          with:
+            python-version: "3.12"
 
-      - name: Run molecule tests.
-        if: inputs.molecule
-        uses: daniel-mizsak/workflows/.github/actions/molecule@main
-        with:
-          ANSIBLE_VAULT_PASSWORD_FILE: $GITHUB_WORKSPACE/${{ inputs.working-directory }}/vault_password.txt
+        - name: Upgrade pip.
+          run: >
+            python -m pip install --upgrade pip
 
-      - name: Run ansible-lint.
-        if: inputs.ansible-lint
-        uses: super-linter/super-linter@v6
-        env:
-          ANSIBLE_CONFIG_FILE: ${{ inputs.ansible-lint-config }}
+        - name: Install dependencies.
+          run: >
+            pip install ansible ansible-lint molecule molecule-plugins[docker]
 
-      - name: Run yamllint.
-        if: inputs.yamllint
-        uses: super-linter/super-linter@v6
-        env:
-          YAMLLINT_CONFIG_FILE: ${{ inputs.yamllint-config }}
+        - name: Run yamllint.
+          if: inputs.yamllint
+          run: |
+            if [ -z "${{ inputs.yamllint-config }}" ]; then
+              yamllint .
+            else
+              yamllint --config-file ${{ inputs.yamllint-config }} .
+            fi
 
+        - name: Run ansible-lint.
+          if: inputs.ansible-lint
+          run: |
+            if [ -z "${{ inputs.ansible-lint-config }}" ]; then
+              ansible-lint --force-color
+            else
+              ansible-lint --config-file ${{ inputs.ansible-lint-config }} --force-color
+            fi
+
+        - name: Create vault password file.
+          run: >
+            echo "${{ secrets.VAULT_PASSWORD }}" > $GITHUB_WORKSPACE/${{ inputs.working-directory }}/vault_password.txt
+
+        - name: Run molecule tests.
+          if: inputs.molecule
+          run: >
+            molecule test
+          env:
+            ANSIBLE_FORCE_COLOR: "1"
+            ANSIBLE_VAULT_PASSWORD_FILE: $GITHUB_WORKSPACE/${{ inputs.working-directory }}/vault_password.txt
+            PY_COLORS: "1"

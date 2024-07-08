@@ -26,7 +26,6 @@ on:
 
 jobs:
   latest-python-version:
-    if: ${{ inputs.codecov }}
     runs-on: ubuntu-latest
     outputs:
       latest-python-version: ${{ steps.get-latest-python-version.outputs.LATEST_PYTHON_VERSION }}
