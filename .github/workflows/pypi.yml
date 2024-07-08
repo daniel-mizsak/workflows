@@ -3,11 +3,6 @@ on:
   workflow_call:
     inputs:
       # General
-      os:
-        description: "The operating system to run the workflow on."
-        default: "ubuntu-latest"
-        type: string
-
       working-directory:
         description: "The working directory to run the workflow in."
         default: "."
@@ -31,7 +26,7 @@ on:
 
 jobs:
   pypi:
-    runs-on: ${{ inputs.os }}
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ${{ inputs.working-directory }}

@@ -3,11 +3,6 @@ on:
   workflow_call:
     inputs:
       # General
-      os:
-        description: "The operating system to run the workflow on."
-        default: "ubuntu-latest"
-        type: string
-
       working-directory:
         description: "The working directory to run the workflow in."
         default: "."
@@ -30,8 +25,19 @@ on:
         required: false
 
 jobs:
+  get-latest-python-verion:
+    if: ${{ inputs.codecov }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set latest Python version of the matrix.
+        id: latest-python-version
+        run: |
+          LATEST_PYTHON_VERSION=$(echo ${{ inputs.python-versions }} | tr -d '[]\" ' | tr ',' '\n' | sort -V | tail -n 1)
+          echo "LATEST_PYTHON_VERSION=$LATEST_PYTHON_VERSION" >> $env:GITHUB_OUTPUT
+
   tox:
-    runs-on: ${{ inputs.os }}
+    needs: get-latest-python-verion
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ${{ inputs.working-directory }}
@@ -60,15 +66,8 @@ jobs:
         run: >
           tox
 
-      - name: Set latest Python version of the matrix.
-        if: inputs.codecov
-        id: latest-python-version
-        run: |
-          LATEST_PYTHON_VERSION=$(echo ${{ inputs.python-versions }} | tr -d '[]\" ' | tr ',' '\n' | sort -V | tail -n 1)
-          echo "LATEST_PYTHON_VERSION=$LATEST_PYTHON_VERSION" >> $GITHUB_ENV
-
       - name: Run codecov.
-        if: inputs.codecov && matrix.python-version == env.LATEST_PYTHON_VERSION
+        if: inputs.codecov && matrix.python-version == steps.latest-python-version.outputs.LATEST_PYTHON_VERSION
         uses: codecov/codecov-action@v4.0.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}

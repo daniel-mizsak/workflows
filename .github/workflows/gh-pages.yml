@@ -3,11 +3,6 @@ on:
   workflow_call:
     inputs:
       # General
-      os:
-        description: "The operating system to run the workflow on."
-        default: "ubuntu-latest"
-        type: string
-
       working-directory:
         description: "The working directory to run the workflow in."
         default: "."
@@ -20,7 +15,7 @@ on:
 
 jobs:
   gh-pages:
-    runs-on: ${{ inputs.os }}
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ${{ inputs.working-directory }}
@@ -44,7 +39,7 @@ jobs:
 
       - name: Build the documentation.
         run: >
-          sphinx-build -b html docs docs/build/html
+          sphinx-build --builder html docs docs/build/html
 
       - name: Deploy to GitHub Pages.
         uses: peaceiris/actions-gh-pages@v4
