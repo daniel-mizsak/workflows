@@ -13,14 +13,10 @@ inputs:
     description: "Return non-zero exit code on warnings as well as errors"
     required: false
     default: "false"
-  no_warnings:
-    description: "Output only error level problems"
-    required: false
-    default: "false"
 
 outputs:
-  logfile_path:
-    description: "Path to the log file"
+  logs:
+    description: "Logs of yamllint"
 
 runs:
   using: "docker"
@@ -29,4 +25,3 @@ runs:
     - ${{ inputs.file_or_dir }}
     - ${{ inputs.config_file }}
     - ${{ inputs.strict }}
-    - ${{ inputs.no_warnings }}

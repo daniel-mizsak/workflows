@@ -1,6 +1,5 @@
 #!/bin/bash -l
 set -o pipefail
-options=()
 
 if [[ -n "$INPUT_CONFIG_FILE" ]]; then
   options+=(--config-file "$INPUT_CONFIG_FILE")
@@ -10,13 +9,15 @@ if [[ "$INPUT_STRICT" = "true" ]]; then
   options+=(--strict)
 fi
 
-if [[ "$INPUT_STRICT" = "true" ]]; then
-  options+=(--no-warnings)
-fi
-
 LOGFILE_PATH=$(mktemp)
-yamllint "${options[@]}" ${INPUT_FILE_OR_DIR:-.} | tee -a "$LOGFILE_PATH"
+yamllint "${options[@]}" ${INPUT_FILE_OR_DIR:-.} 2>&1 | tee -a "$LOGFILE_PATH"
 exitcode=$?
 
-echo "logfile_path=$(realpath ${LOGFILE_PATH})" >> $GITHUB_OUTPUT
+echo 'logs<<EOF' >> $GITHUB_OUTPUT
+cat $LOGFILE_PATH >> $GITHUB_OUTPUT
+echo 'EOF' >> $GITHUB_OUTPUT
+
+if [[ $exitcode -eq 2 ]]; then
+  exitcode=1
+fi
 exit $exitcode
