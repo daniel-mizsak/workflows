@@ -3,7 +3,7 @@
 [Example usage](https://github.com/daniel-mizsak/macos-setup/blob/main/.github/workflows/ci.yml)
 
 ```yaml
-- uses: daniel-mizsak/workflows/.github/workflows/molecule.yml@main
+    uses: daniel-mizsak/workflows/.github/workflows/molecule.yml@main
     with:
       # The working directory to run the workflow in.
       working-directory: "./ansible"

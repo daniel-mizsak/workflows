@@ -1,0 +1,32 @@
+---
+name: "Ansible Lint"
+description: "Lint Ansible files using ansible-lint"
+
+inputs:
+  lintables:
+    description: "One or more files or paths"
+    required: false
+  config_file:
+    description: "Specify configuration file to use"
+    required: false
+  strict:
+    description: "Return non-zero exit code on warnings as well as errors"
+    required: false
+    default: "false"
+  warn_list:
+    description: "Only warn about these rules, unless overridden in config file"
+    required: false
+    default: "false"
+
+outputs:
+  logfile_path:
+    description: "Path to the log file"
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.lintables }}
+    - ${{ inputs.config_file }}
+    - ${{ inputs.strict }}
+    - ${{ inputs.warn_list }}

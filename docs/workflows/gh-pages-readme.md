@@ -3,7 +3,7 @@
 [Example usage](https://github.com/daniel-mizsak/python-package-template/blob/main/.github/workflows/release.yml)
 
 ```yaml
-- uses: daniel-mizsak/workflows/.github/workflows/gh-pages.yml@main
+    uses: daniel-mizsak/workflows/.github/workflows/gh-pages.yml@main
     with:
       # The working directory to run the workflow in.
       working-directory: "."
