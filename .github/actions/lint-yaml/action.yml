@@ -1,0 +1,27 @@
+name: "Lint YAML"
+description: "Lint YAML files using yamllint"
+
+inputs:
+  file_or_dir:
+    description: "Files to check"
+    required: false
+  config_file:
+    description: "Path to a custom configuration"
+    required: false
+  strict:
+    description: "Return non-zero exit code on warnings as well as errors"
+    required: false
+    default: "false"
+  no_warnings:
+    description: "Output only error level problems"
+    required: false
+    default: "false"
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.file_or_dir }}
+    - ${{ inputs.config_file }}
+    - ${{ inputs.strict }}
+    - ${{ inputs.no_warnings }}
