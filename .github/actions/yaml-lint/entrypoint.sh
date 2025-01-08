@@ -17,7 +17,4 @@ echo 'logs<<EOF' >> $GITHUB_OUTPUT
 cat $LOGFILE_PATH >> $GITHUB_OUTPUT
 echo 'EOF' >> $GITHUB_OUTPUT
 
-if [[ $exitcode -eq 2 ]]; then
-  exitcode=1
-fi
 exit $exitcode
