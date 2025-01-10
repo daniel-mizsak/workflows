@@ -10,11 +10,6 @@ inputs:
     description: "The password used for ansible vault encryption"
     required: false
 
-outputs:
-  logs:
-    description: "Logs of molecule"
-    value: ${{ step. }}
-
 runs:
   using: "composite"
   steps:
