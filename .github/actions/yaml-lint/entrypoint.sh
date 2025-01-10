@@ -9,7 +9,7 @@ if [[ "$INPUT_STRICT" = "true" ]]; then
   options+=(--strict)
 fi
 
-LOGFILE_PATH=$(mktemp)
+LOGFILE_PATH=$(mktemp /tmp/yamllint.XXXXXX)
 cd "${INPUT_WORKING_DIRECTORY:-.}"
 yamllint "${options[@]}" . 2>&1 | tee -a "$LOGFILE_PATH"
 exitcode=$?
