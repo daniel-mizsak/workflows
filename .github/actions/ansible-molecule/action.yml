@@ -34,6 +34,21 @@ runs:
       shell: bash
       working-directory: ${{ inputs.working_directory }}
 
+    - name: Debug step # TODO: Delete this
+      run: |
+        pwd
+        ls -la
+        ls -la ${{ inputs.working_directory }}
+        ls -la ansible/molecule/default
+      shell: bash
+
+    - name: Debug step # TODO: Delete this
+      run: |
+        pwd
+        ls -la
+      shell: bash
+      working-directory: ${{ inputs.working_directory }}
+
     - name: Run molecule
       run: >
         molecule test
