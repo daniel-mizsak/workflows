@@ -2,26 +2,24 @@
 on:
   workflow_call:
     inputs:
-      # General
-      working-directory:
-        description: "The working directory to run the workflow in."
+      working_directory:
+        description: "Directory for running the workflow"
         default: "."
         type: string
 
-      python-versions:
-        description: "The list of python versions to run the workflow with."
+      python_versions:
+        description: "List of python versions, must correspond to tox environments"
         default: "['3.12']"
         type: string
 
-      # Workflow specific
       codecov:
-        description: "Whether to run codecov after tests."
+        description: "Whether to run codecov after tests"
         default: false
         type: boolean
 
     secrets:
       CODECOV_TOKEN:
-        description: "The token to use for codecov."
+        description: "The token to use for codecov"
         required: false
 
 jobs:
@@ -33,18 +31,18 @@ jobs:
       - name: Get latest Python version of the matrix
         id: get-latest-python-version
         run: |
-          LATEST_PYTHON_VERSION=$(echo ${{ inputs.python-versions }} | tr -d '[]\" ' | tr ',' '\n' | sort -V | tail -n 1)
-          echo "LATEST_PYTHON_VERSION=$LATEST_PYTHON_VERSION" >> "$GITHUB_OUTPUT"
+          LATEST_PYTHON_VERSION=$(echo ${{ inputs.python_versions }} | tr -d '[]\" ' | tr ',' '\n' | sort -V | tail -n 1)
+          echo "LATEST_PYTHON_VERSION=$LATEST_PYTHON_VERSION" >> $GITHUB_OUTPUT
 
   tox:
     needs: latest-python-version
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ${{ inputs.working-directory }}
+        working-directory: ${{ inputs.working_directory }}
     strategy:
       matrix:
-        python-version: ${{ fromJson(inputs.python-versions) }}
+        python-version: ${{ fromJson(inputs.python_versions) }}
     env:
       LATEST_PYTHON_VERSION: ${{ needs.latest-python-version.outputs.latest-python-version }}
 

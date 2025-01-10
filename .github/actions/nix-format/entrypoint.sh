@@ -1,8 +1,6 @@
 #!/root/.nix-profile/bin/bash -l
 set -o pipefail
 
-nix-env -iA nixpkgs.alejandra
-
 LOGFILE_PATH=$(mktemp)
 cd "${INPUT_WORKING_DIRECTORY:-.}"
 alejandra --check 2>&1 | tee -a "$LOGFILE_PATH"

@@ -4,7 +4,7 @@ description: "Format Nix files using alejandra"
 
 inputs:
   working_directory:
-    description: "Directory for running action"
+    description: "Directory for running the action"
     required: false
 
 outputs:
