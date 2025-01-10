@@ -7,12 +7,22 @@ on:
         default: "./ansible"
         type: string
 
+      yaml_lint_config_file:
+        description: "Configuration file, relative to the working directory"
+        required: false
+        type: string
+
+      ansible_lint_config_file:
+        description: "Configuration file, relative to the working directory"
+        required: false
+        type: string
+
     secrets:
       VAULT_PASSWORD:
         description: "The password used for ansible vault encryption"
 
 jobs:
-  molecule:
+  ansible:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -39,7 +49,20 @@ jobs:
         run: >
           echo "${{ secrets.VAULT_PASSWORD }}" > $GITHUB_WORKSPACE/${{ inputs.working_directory }}/vault_password.txt
 
-      - name: Run molecule tests
+      - name: Run yamllint
+        uses: daniel-mizsak/workflows/.github/actions/yaml-lint@feature/major-refactor
+        with:
+          config_file: ${{ inputs.yaml_lint_config_file }}
+          strict: true
+
+      - name: Run ansible-lint
+        uses: ansible/ansible-lint@main
+        with:
+          args: |
+            ${{ inputs.ansible_lint_config_file && format('--config-file {0}', inputs.ansible_lint_config_file) || '' }}
+            --strict
+
+      - name: Run molecule
         run: >
           molecule test
         env:
