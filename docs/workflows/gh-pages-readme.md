@@ -1,15 +1,18 @@
 ## GH-PAGES
 
+Deploy documentation to GitHub Pages.
+
 [Example usage](https://github.com/daniel-mizsak/python-package-template/blob/main/.github/workflows/release.yml)
 
 ```yaml
     uses: daniel-mizsak/workflows/.github/workflows/gh-pages.yml@main
     with:
-      # The working directory to run the workflow in.
-      working-directory: "."
+      # Directory for running the workflow
+      working_directory: "."
 
-      # The python version to run the workflow with.
-      python-version: "3.12"
+      # Python version to run the workflow with.
+      python_version: "3.12"
 ```
 
-The workflow only supports documentation building with `spinx`.
+- Documentation dependencies must be installable via `pip install [docs]`
+- The workflow only supports documentation building with `spinx`

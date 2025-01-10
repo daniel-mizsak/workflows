@@ -1,4 +1,6 @@
 ---
+name: "Ansible CI/CD"
+
 on:
   workflow_call:
     inputs:
@@ -19,7 +21,7 @@ on:
 
     secrets:
       VAULT_PASSWORD:
-        description: "The password used for ansible vault encryption"
+        description: "Password used for ansible vault encryption"
 
 jobs:
   ansible:

@@ -10,7 +10,7 @@ on:
         type: string
 
       python_version:
-        description: "The python version to run the workflow with"
+        description: "Python version to run the workflow with"
         default: "3.12"
         type: string
 

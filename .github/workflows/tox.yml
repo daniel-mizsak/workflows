@@ -1,4 +1,6 @@
 ---
+name: "Python CI/CD"
+
 on:
   workflow_call:
     inputs:
@@ -8,7 +10,7 @@ on:
         type: string
 
       python_versions:
-        description: "List of python versions, must correspond to tox environments"
+        description: "List of python versions, must correspond to tox configuration"
         default: "['3.12']"
         type: string
 
@@ -19,23 +21,11 @@ on:
 
     secrets:
       CODECOV_TOKEN:
-        description: "The token to use for codecov"
+        description: "Token to use for codecov"
         required: false
 
 jobs:
-  latest-python-version:
-    runs-on: ubuntu-latest
-    outputs:
-      latest-python-version: ${{ steps.get-latest-python-version.outputs.LATEST_PYTHON_VERSION }}
-    steps:
-      - name: Get latest Python version of the matrix
-        id: get-latest-python-version
-        run: |
-          LATEST_PYTHON_VERSION=$(echo ${{ inputs.python_versions }} | tr -d '[]\" ' | tr ',' '\n' | sort -V | tail -n 1)
-          echo "LATEST_PYTHON_VERSION=$LATEST_PYTHON_VERSION" >> $GITHUB_OUTPUT
-
   tox:
-    needs: latest-python-version
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -43,8 +33,6 @@ jobs:
     strategy:
       matrix:
         python-version: ${{ fromJson(inputs.python_versions) }}
-    env:
-      LATEST_PYTHON_VERSION: ${{ needs.latest-python-version.outputs.latest-python-version }}
 
     steps:
       - name: Check out the codebase
@@ -68,7 +56,7 @@ jobs:
           tox
 
       - name: Run codecov
-        if: inputs.codecov && matrix.python-version == env.LATEST_PYTHON_VERSION
+        if: inputs.codecov
         uses: codecov/codecov-action@v4.0.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}

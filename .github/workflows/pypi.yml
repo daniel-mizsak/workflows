@@ -1,4 +1,6 @@
 ---
+name: "Publish Python package to PyPI"
+
 on:
   workflow_call:
     inputs:
@@ -8,18 +10,18 @@ on:
         type: string
 
       environment:
-        description: "The environment to run the workflow in"
+        description: "Environment to run the workflow in"
         required: true
         type: string
 
       python_version:
-        description: "The python version to run the workflow with"
+        description: "Python version to run the workflow with"
         default: "3.12"
         type: string
 
     secrets:
       PYPI_API_TOKEN:
-        description: "The token to use for PyPI"
+        description: "Token to use for PyPI"
         required: true
 
 jobs:
