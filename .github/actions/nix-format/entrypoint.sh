@@ -4,7 +4,8 @@ set -o pipefail
 nix-env -iA nixpkgs.alejandra
 
 LOGFILE_PATH=$(mktemp)
-alejandra ${INPUT_FILE_OR_DIR:-.} --check 2>&1 | tee -a "$LOGFILE_PATH"
+cd "${INPUT_WORKING_DIRECTORY:-.}"
+alejandra --check 2>&1 | tee -a "$LOGFILE_PATH"
 exitcode=$?
 
 echo 'logs<<EOF' >> $GITHUB_OUTPUT

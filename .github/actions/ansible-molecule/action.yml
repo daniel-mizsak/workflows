@@ -4,7 +4,7 @@ description: "Test Ansible files using molecule"
 
 inputs:
   working_directory:
-    description: "Path to the molecule directory"
+    description: "Directory for running action"
     required: false
   vault_password:
     description: "The password used for ansible vault encryption"

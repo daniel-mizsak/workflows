@@ -3,16 +3,15 @@ name: "Yaml Lint"
 description: "Lint Yaml files using yamllint"
 
 inputs:
-  path:
-    description: "Files or directories"
+  working_directory:
+    description: "Directory for running action"
     required: false
   config_file:
-    description: "Configuration file to use"
+    description: "Configuration file to use relative to the working directory"
     required: false
   strict:
     description: "Return non-zero exit code on warnings as well as errors"
     required: false
-    default: "false"
 
 outputs:
   logs:
@@ -22,6 +21,6 @@ runs:
   using: "docker"
   image: "Dockerfile"
   args:
-    - ${{ inputs.path }}
+    - ${{ inputs.working_directory }}
     - ${{ inputs.config_file }}
     - ${{ inputs.strict }}
