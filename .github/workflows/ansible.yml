@@ -8,12 +8,12 @@ on:
         type: string
 
       yaml_lint_config_file:
-        description: "Configuration file, relative to the working directory"
+        description: "Yamllint configuration file, relative to the working directory"
         required: false
         type: string
 
       ansible_lint_config_file:
-        description: "Configuration file, relative to the working directory"
+        description: "Ansible-lint configuration file, relative to the working directory"
         required: false
         type: string
 
@@ -56,7 +56,7 @@ jobs:
         uses: ansible/ansible-lint@main
         with:
           working_directory: ${{ inputs.working_directory }}
-          args: "${{ inputs.ansible_lint_config_file && format('--config-file {0}', inputs.ansible_lint_config_file) || '' }}"
+          args: "${{ inputs.ansible_lint_config_file && format('--config-file {0}', inputs.ansible_lint_config_file) || '' }} --format=pep8 --force-color"
           setup_python: false
         env:
           ANSIBLE_VAULT_PASSWORD_FILE: $GITHUB_WORKSPACE/${{ inputs.working_directory }}/vault_password.txt
@@ -71,4 +71,3 @@ jobs:
         env:
           ANSIBLE_VAULT_PASSWORD_FILE: $GITHUB_WORKSPACE/${{ inputs.working_directory }}/vault_password.txt
           ANSIBLE_FORCE_COLOR: "1"
-          PY_COLORS: "1"
