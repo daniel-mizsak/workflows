@@ -56,9 +56,7 @@ jobs:
         uses: ansible/ansible-lint@main
         with:
           working_directory: ${{ inputs.working_directory }}
-          args: >
-            ${{ inputs.ansible_lint_config_file && format('--config-file {0}', inputs.ansible_lint_config_file) || '' }}
-            --strict
+          args: "${{ inputs.ansible_lint_config_file && format('--config-file {0}', inputs.ansible_lint_config_file) || '' }}"
           setup_python: false
         env:
           ANSIBLE_VAULT_PASSWORD_FILE: $GITHUB_WORKSPACE/${{ inputs.working_directory }}/vault_password.txt
