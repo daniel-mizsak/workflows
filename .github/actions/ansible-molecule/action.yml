@@ -3,10 +3,10 @@ name: "Ansible Molecule"
 description: "Test Ansible files using molecule"
 
 inputs:
-  working-directory:
+  working_directory:
     description: "Path to the molecule directory"
     required: false
-  vault-password:
+  vault_password:
     description: "The password used for ansible vault encryption"
     required: false
 
@@ -35,9 +35,9 @@ runs:
 
     - name: Create vault password file
       run: >
-        echo "${{ inputs.vault-password }}" > vault_password.txt
+        echo "${{ inputs.vault_password }}" > vault_password.txt
       shell: bash
-      working-directory: ${{ inputs.working-directory }}
+      working-directory: ${{ inputs.working_directory }}
 
     - name: Run molecule
       run: >
