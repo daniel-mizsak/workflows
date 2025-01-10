@@ -3,11 +3,11 @@ name: "Ansible Lint"
 description: "Lint Ansible files using ansible-lint"
 
 inputs:
-  lintables:
-    description: "One or more files or paths"
+  path:
+    description: "Files or directories"
     required: false
   config_file:
-    description: "Specify configuration file to use"
+    description: "Configuration file to use"
     required: false
   strict:
     description: "Return non-zero exit code on warnings as well as errors"
@@ -22,6 +22,6 @@ runs:
   using: "docker"
   image: "Dockerfile"
   args:
-    - ${{ inputs.lintables }}
+    - ${{ inputs.path }}
     - ${{ inputs.config_file }}
     - ${{ inputs.strict }}

@@ -1,15 +1,17 @@
 ---
+name: "Deploy documentation to GitHub Pages"
+
 on:
   workflow_call:
     inputs:
       # General
       working-directory:
-        description: "The working directory to run the workflow in."
+        description: "The working directory to run the workflow in"
         default: "."
         type: string
 
       python-version:
-        description: "The python version to run the workflow with."
+        description: "The python version to run the workflow with"
         default: "3.12"
         type: string
 

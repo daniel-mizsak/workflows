@@ -3,7 +3,7 @@ name: "Nix Format"
 description: "Format Nix files using alejandra"
 
 inputs:
-  file_or_dir:
+  path:
     description: "Files or directories"
     required: false
 
@@ -15,4 +15,4 @@ runs:
   using: "docker"
   image: "Dockerfile"
   args:
-    - ${{ inputs.file_or_dir }}
+    - ${{ inputs.path }}

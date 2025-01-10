@@ -10,7 +10,7 @@ if [[ "$INPUT_STRICT" = "true" ]]; then
 fi
 
 LOGFILE_PATH=$(mktemp)
-ansible-lint "${options[@]}" "$INPUT_LINTABLES" 2>&1 | tee -a "$LOGFILE_PATH"
+ansible-lint "${options[@]}" "$INPUT_PATH" 2>&1 | tee -a "$LOGFILE_PATH"
 exitcode=$?
 
 echo 'logs<<EOF' >> $GITHUB_OUTPUT

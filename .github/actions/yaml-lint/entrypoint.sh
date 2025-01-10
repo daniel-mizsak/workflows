@@ -10,7 +10,7 @@ if [[ "$INPUT_STRICT" = "true" ]]; then
 fi
 
 LOGFILE_PATH=$(mktemp)
-yamllint "${options[@]}" ${INPUT_FILE_OR_DIR:-.} 2>&1 | tee -a "$LOGFILE_PATH"
+yamllint "${options[@]}" ${INPUT_PATH:-.} 2>&1 | tee -a "$LOGFILE_PATH"
 exitcode=$?
 
 echo 'logs<<EOF' >> $GITHUB_OUTPUT

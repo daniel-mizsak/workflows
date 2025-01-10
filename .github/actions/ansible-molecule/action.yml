@@ -1,0 +1,48 @@
+---
+name: "Ansible Molecule"
+description: "Test Ansible files using molecule"
+
+inputs:
+  working-directory:
+    description: "Path to the molecule directory"
+    required: false
+  vault-password:
+    description: "The password used for ansible vault encryption"
+    required: false
+
+outputs:
+  logs:
+    description: "Logs of molecule"
+    value: ${{ step. }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+
+    - name: Upgrade pip
+      run: >
+        python -m pip install --upgrade pip
+      shell: bash
+
+    - name: Install molecule
+      run: >
+        pip install molecule molecule-plugins[docker]
+      shell: bash
+
+    - name: Create vault password file
+      run: >
+        echo "${{ inputs.vault-password }}" > vault_password.txt
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: Run molecule
+      run: >
+        molecule test
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      env:
+        ANSIBLE_VAULT_PASSWORD_FILE: vault_password.txt
