@@ -6,26 +6,29 @@
 
 
 ## Overview
-Reusable GitHub workflows and composite actions.
+Reusable GitHub actions and workflows.
 
 ## Getting started
-Reusable Workflows
+Actions
 
 | Name | Description | Content |
 |:---------|:--------:|:------------|
+| nix-format | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/actions/nix-format-readme.md" target="_blank">nix-format-readme</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/actions/nix-format/action.yml" target="_blank">nix-format.yml</a> |
+| yaml-lint | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/actions/yaml-lint-readme.md" target="_blank">yaml-lint-readme</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/actions/yaml-lint/action.yml" target="_blank">yaml-lint.yml</a> |
+
+<br><br>
+Workflows
+
+| Name | Description | Content |
+|:---------|:--------:|:------------|
+| ansible | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/workflows/ansible-readme.md" target="_blank">ansible-readme</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/workflows/ansible.yml" target="_blank">ansible.yml</a> |
 | gh-pages | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/workflows/gh-pages-readme.md" target="_blank">gh-pages-readme</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/workflows/gh-pages.yml " target="_blank">gh-pages.yml</a> |
-| molecule | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/workflows/molecule-readme.md" target="_blank">molecule-readme</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/workflows/molecule.yml" target="_blank">molecule.yml</a> |
 | pypi | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/workflows/pypi-readme.md" target="_blank">pypi-readme</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/workflows/pypi.yml" target="_blank">pypi.yml</a> |
 | tox | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/workflows/tox-readme.md" target="_blank">tox-readme</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/workflows/tox.yml" target="_blank">tox.yml</a> |
 
-<br><br>
-Composite Actions
+## Additional actions/workflows
+Some extra actions/workflows that are not maintained by me, but are worth mentioning.
 
 | Name | Description | Content |
 |:---------|:--------:|:------------|
-| ansible-lint | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/actions/ansible-lint-readme.md" target="_blank">ansible-lint-readme</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/actions/ansible-lint/action.yml" target="_blank">ansible-lint.yml</a> |
-| molecule | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/actions/molecule-readme.md" target="_blank">molecule-readme</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/actions/molecule/action.yml" target="_blank">molecule.yml</a> |
-| nix-format | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/actions/nix-format-readme.md" target="_blank">nix-format-readme</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/actions/nix-format/action.yml" target="_blank">nix-format.yml</a> |
-| nix-lint | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/actions/nix-lint-readme.md" target="_blank">nix-lint-readme</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/actions/nix-lint/action.yml" target="_blank">nix-lint.yml</a> |
-| tox | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/actions/tox-readme.md" target="_blank">tox-readme</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/actions/tox/action.yml" target="_blank">tox.yml</a> |
-| yaml-lint | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/actions/yaml-lint-readme.md" target="_blank">yaml-lint-readme</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/actions/yaml-lint/action.yml" target="_blank">yaml-lint.yml</a> |
+

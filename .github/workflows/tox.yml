@@ -1,52 +1,38 @@
 ---
+name: "Python CI/CD"
+
 on:
   workflow_call:
     inputs:
-      # General
-      working-directory:
-        description: "The working directory to run the workflow in."
+      working_directory:
+        description: "Directory for running the workflow"
         default: "."
         type: string
 
-      python-versions:
-        description: "The list of python versions to run the workflow with."
+      python_versions:
+        description: "List of python versions, must correspond to tox configuration"
         default: "['3.12']"
         type: string
 
-      # Workflow specific
       codecov:
-        description: "Whether to run codecov after tests."
+        description: "Whether to run codecov after tests"
         default: false
         type: boolean
 
     secrets:
       CODECOV_TOKEN:
-        description: "The token to use for codecov."
+        description: "Token to use for codecov"
         required: false
 
 jobs:
-  latest-python-version:
-    runs-on: ubuntu-latest
-    outputs:
-      latest-python-version: ${{ steps.get-latest-python-version.outputs.LATEST_PYTHON_VERSION }}
-    steps:
-      - name: Get latest Python version of the matrix
-        id: get-latest-python-version
-        run: |
-          LATEST_PYTHON_VERSION=$(echo ${{ inputs.python-versions }} | tr -d '[]\" ' | tr ',' '\n' | sort -V | tail -n 1)
-          echo "LATEST_PYTHON_VERSION=$LATEST_PYTHON_VERSION" >> "$GITHUB_OUTPUT"
-
   tox:
-    needs: latest-python-version
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ${{ inputs.working-directory }}
+        working-directory: ${{ inputs.working_directory }}
     strategy:
       matrix:
-        python-version: ${{ fromJson(inputs.python-versions) }}
-    env:
-      LATEST_PYTHON_VERSION: ${{ needs.latest-python-version.outputs.latest-python-version }}
+        python-version: ${{ fromJson(inputs.python_versions) }}
 
     steps:
       - name: Check out the codebase
@@ -70,7 +56,7 @@ jobs:
           tox
 
       - name: Run codecov
-        if: inputs.codecov && matrix.python-version == env.LATEST_PYTHON_VERSION
+        if: inputs.codecov
         uses: codecov/codecov-action@v4.0.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}

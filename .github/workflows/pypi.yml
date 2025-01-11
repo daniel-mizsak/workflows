@@ -1,27 +1,27 @@
 ---
+name: "Publish Python package to PyPI"
+
 on:
   workflow_call:
     inputs:
-      # General
-      working-directory:
-        description: "The working directory to run the workflow in."
+      working_directory:
+        description: "Directory for running the workflow"
         default: "."
         type: string
 
       environment:
-        description: "The environment to run the workflow in."
+        description: "Environment to run the workflow in"
         required: true
         type: string
 
-      python-version:
-        description: "The python version to run the workflow with."
+      python_version:
+        description: "Python version to run the workflow with"
         default: "3.12"
         type: string
 
-      # Workflow specific
     secrets:
       PYPI_API_TOKEN:
-        description: "The token to use for PyPI."
+        description: "Token to use for PyPI"
         required: true
 
 jobs:
@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ${{ inputs.working-directory }}
+        working-directory: ${{ inputs.working_directory }}
     environment:
       name: ${{ inputs.environment }}
 
@@ -40,7 +40,7 @@ jobs:
       - name: Set up python
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ inputs.python-version }}
+          python-version: ${{ inputs.python_version }}
 
       - name: Upgrade pip
         run: >

@@ -1,0 +1,76 @@
+---
+name: "Ansible CI/CD"
+
+on:
+  workflow_call:
+    inputs:
+      working_directory:
+        description: "Directory for running the workflow"
+        default: "ansible"
+        type: string
+
+      yaml_lint_config_file:
+        description: "Yamllint configuration file, relative to the working directory"
+        required: false
+        type: string
+
+      ansible_lint_config_file:
+        description: "Ansible-lint configuration file, relative to the working directory"
+        required: false
+        type: string
+
+    secrets:
+      VAULT_PASSWORD:
+        description: "Password used for ansible vault encryption"
+        required: false
+
+jobs:
+  ansible:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_directory }}
+
+    steps:
+      - name: Check out the codebase
+        uses: actions/checkout@v4
+
+      - name: Set up python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Upgrade pip
+        run: >
+          python -m pip install --upgrade pip
+
+      - name: Create vault password file
+        run: >
+          echo "${{ secrets.VAULT_PASSWORD }}" > $GITHUB_WORKSPACE/${{ inputs.working_directory }}/vault_password.txt
+
+      - name: Run yamllint
+        uses: daniel-mizsak/workflows/.github/actions/yaml-lint@main
+        with:
+          working_directory: ${{ inputs.working_directory }}
+          config_file: ${{ inputs.yaml_lint_config_file }}
+          strict: true
+
+      - name: Run ansible-lint
+        uses: ansible/ansible-lint@main
+        with:
+          working_directory: ${{ inputs.working_directory }}
+          args: "${{ inputs.ansible_lint_config_file && format('--config-file {0}', inputs.ansible_lint_config_file) || '' }} --format=pep8 --force-color"
+          setup_python: false
+        env:
+          ANSIBLE_VAULT_PASSWORD_FILE: $GITHUB_WORKSPACE/${{ inputs.working_directory }}/vault_password.txt
+
+      - name: Install molecule dependencies
+        run: >
+          pip install molecule molecule-plugins[docker]
+
+      - name: Run molecule
+        run: >
+          molecule test
+        env:
+          ANSIBLE_VAULT_PASSWORD_FILE: $GITHUB_WORKSPACE/${{ inputs.working_directory }}/vault_password.txt
+          ANSIBLE_FORCE_COLOR: "1"

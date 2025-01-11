@@ -9,8 +9,9 @@ if [[ "$INPUT_STRICT" = "true" ]]; then
   options+=(--strict)
 fi
 
-LOGFILE_PATH=$(mktemp)
-yamllint "${options[@]}" ${INPUT_FILE_OR_DIR:-.} 2>&1 | tee -a "$LOGFILE_PATH"
+LOGFILE_PATH=$(mktemp /tmp/yamllint.XXXXXX)
+cd "${INPUT_WORKING_DIRECTORY:-.}"
+yamllint "${options[@]}" . 2>&1 | tee -a "$LOGFILE_PATH"
 exitcode=$?
 
 echo 'logs<<EOF' >> $GITHUB_OUTPUT
