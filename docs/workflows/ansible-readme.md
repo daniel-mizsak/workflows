@@ -5,16 +5,16 @@ Ansible CI/CD.
 [Example usage](#)
 
 ```yaml
-    uses: daniel-mizsak/workflows/.github/workflows/molecule.yml@main
+    uses: daniel-mizsak/workflows/.github/workflows/ansible.yml@main
     with:
       # Directory for running the workflow
-      working_directory: "./ansible"
+      working_directory: "ansible"
 
       # Yamllint configuration file, relative to the working directory
-      yamllint-config: ".yamllint"
+      yaml_lint_config_file: ".yamllint"
 
       # Ansible-lint configuration file, relative to the working directory
-      ansible-lint-config: ".ansible-lint"
+      ansible_lint_config_file: ".ansible-lint"
 
     secrets:
       # Password used for ansible vault encryption
