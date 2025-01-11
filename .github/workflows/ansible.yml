@@ -22,6 +22,7 @@ on:
     secrets:
       VAULT_PASSWORD:
         description: "Password used for ansible vault encryption"
+        required: false
 
 jobs:
   ansible:
@@ -48,7 +49,7 @@ jobs:
           echo "${{ secrets.VAULT_PASSWORD }}" > $GITHUB_WORKSPACE/${{ inputs.working_directory }}/vault_password.txt
 
       - name: Run yamllint
-        uses: daniel-mizsak/workflows/.github/actions/yaml-lint@feature/major-refactor
+        uses: daniel-mizsak/workflows/.github/actions/yaml-lint@main
         with:
           working_directory: ${{ inputs.working_directory }}
           config_file: ${{ inputs.yaml_lint_config_file }}

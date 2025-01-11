@@ -6,7 +6,7 @@
 
 
 ## Overview
-Reusable GitHub workflows and actions.
+Reusable GitHub actions and workflows.
 
 ## Getting started
 Actions
