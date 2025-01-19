@@ -15,7 +15,12 @@ on:
         type: string
 
       codecov:
-        description: "Whether to run codecov after tests"
+        description: "Whether to upload coverage artifacts"
+        default: false
+        type: boolean
+
+      docs:
+        description: "Whether to upload documentation artifacts"
         default: false
         type: boolean
 
@@ -55,7 +60,39 @@ jobs:
         run: >
           tox
 
-      - name: Run codecov
+      - name: Upload codecov artifacts
+        if: inputs.codecov
+        uses: actions/upload-artifact@v4
+        with:
+          name: codecov
+          path: .tox/artifacts/coverage.xml
+
+      - name: Upload docs artifacts
+        if: inputs.docs
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs
+          path: .tox/artifacts/docs
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: .tox/artifacts/dist
+
+
+  codecov-publish:
+    needs: tox
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download codecov artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: codecov
+          path: coverage.xml
+
+      - name: Publish codecov artifacts to codecov.io
         if: inputs.codecov
         uses: codecov/codecov-action@v5.1.2
         with:
