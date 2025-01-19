@@ -13,7 +13,7 @@ Python CI/CD.
       # List of python versions, must correspond to tox configuration
       python_versions: "['3.12']"
 
-      # Whether to upload coverage artifacts
+      # Whether to upload coverage artifacts and publish to codecov
       codecov: false
 
       # Whether to upload documentation artifacts

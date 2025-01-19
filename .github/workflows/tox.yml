@@ -15,7 +15,7 @@ on:
         type: string
 
       codecov:
-        description: "Whether to upload coverage artifacts"
+        description: "Whether to upload coverage artifacts and publish to codecov"
         default: false
         type: boolean
 
