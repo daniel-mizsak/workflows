@@ -14,10 +14,8 @@ Python CI/CD.
       python_versions: "['3.12']"
 
       # Whether to upload coverage artifacts and publish to codecov
+      # It assumes that tox (somewhere) generates .tox/artifacts/coverage.xml
       codecov: false
-
-      # Whether to upload documentation artifacts
-      docs: false
 
     secrets:
       # Token to use for codecov.
