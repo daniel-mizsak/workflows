@@ -65,6 +65,7 @@ jobs:
       - name: Upload codecov artifacts
         if: inputs.codecov
         uses: actions/upload-artifact@v4
+        continue-on-error: true
         with:
           name: codecov
           path: .tox/artifacts/coverage.xml
@@ -72,12 +73,14 @@ jobs:
       - name: Upload docs artifacts
         if: inputs.docs
         uses: actions/upload-pages-artifact@v3
+        continue-on-error: true
         with:
           name: docs
           path: .tox/artifacts/docs
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
+        continue-on-error: true
         with:
           name: build
           path: .tox/artifacts/dist
