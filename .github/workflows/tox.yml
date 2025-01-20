@@ -71,7 +71,7 @@ jobs:
 
       - name: Upload docs artifacts
         if: inputs.docs
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
           name: docs
           path: .tox/artifacts/docs
