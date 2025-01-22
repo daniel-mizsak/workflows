@@ -1,6 +1,6 @@
 ## TOX
 
-Python CI/CD.
+Python CI/CD
 
 [Example usage](https://github.com/daniel-mizsak/python-package-template/blob/main/.github/workflows/ci.yml)
 
@@ -18,6 +18,6 @@ Python CI/CD.
       codecov: false
 
     secrets:
-      # Token to use for codecov.
+      # Token to use for codecov
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 ```

@@ -1,6 +1,6 @@
 ## ANSIBLE
 
-Ansible CI/CD.
+Ansible CI/CD
 
 [Example usage](#)
 

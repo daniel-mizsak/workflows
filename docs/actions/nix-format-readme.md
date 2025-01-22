@@ -1,6 +1,6 @@
 ## NIX FORMAT
 
-Format Nix files using alejandra.
+Format Nix files using alejandra
 
 [Example usage](#)
 

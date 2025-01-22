@@ -1,6 +1,6 @@
 ## C# FORMAT
 
-"Format C# files using csharpier.
+Format C# files using csharpier
 
 [Example usage](#)
 

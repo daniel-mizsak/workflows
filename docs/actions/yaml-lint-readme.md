@@ -1,6 +1,6 @@
 ## YAML LINT
 
-Lint Yaml files using yamllint.
+Lint Yaml files using yamllint
 
 [Example usage](#)
 
