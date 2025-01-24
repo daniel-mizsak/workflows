@@ -24,4 +24,3 @@ Workflows
 |:---------|:--------:|:------------|
 | ansible | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/workflows/ansible-readme.md" target="_blank">ansible-readme</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/workflows/ansible.yml" target="_blank">ansible.yml</a> |
 | tox | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/workflows/tox-readme.md" target="_blank">tox-readme</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/workflows/tox.yml" target="_blank">tox.yml</a> |
-

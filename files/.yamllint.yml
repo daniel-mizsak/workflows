@@ -1,0 +1,14 @@
+---
+extends: default
+
+ignore: |
+  .pre-commit-config.yaml
+
+rules:
+  line-length:
+    max: 200
+    level: warning
+
+  truthy:
+    ignore: |
+      .github
