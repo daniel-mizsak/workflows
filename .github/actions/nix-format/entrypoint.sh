@@ -3,7 +3,7 @@
 set -o pipefail
 
 LOGFILE_PATH=$(mktemp /tmp/alejandra.XXXXXX)
-cd "${INPUT_WORKING_DIRECTORY:-.}"
+cd "${INPUT_WORKING_DIRECTORY:-.}" || exit 1
 alejandra --check . 2>&1 | tee -a "$LOGFILE_PATH"
 exitcode=$?
 
