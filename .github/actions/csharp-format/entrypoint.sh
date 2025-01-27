@@ -12,4 +12,10 @@ echo 'logs<<EOF' >> "$GITHUB_OUTPUT"
 cat "$LOGFILE_PATH" >> "$GITHUB_OUTPUT"
 echo 'EOF' >> "$GITHUB_OUTPUT"
 
+if [[ $exitcode -eq 0 ]]; then
+    echo "✅ CSharpier formatting passed successfully." >> "$GITHUB_STEP_SUMMARY"
+else
+    echo "❌ CSharpier formatting failed." >> "$GITHUB_STEP_SUMMARY"
+fi
+
 exit $exitcode

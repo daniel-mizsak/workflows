@@ -17,11 +17,5 @@ jobs:
       - name: Run yamllint
         uses: ./.github/actions/yaml-lint
         with:
-          working_directory: .
           config_file: files/.yamllint.yml
           strict: true
-
-      - name: Run csharpier
-        uses: ./.github/actions/csharp-format
-        with:
-          working_directory: .
