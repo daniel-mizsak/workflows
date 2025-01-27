@@ -48,29 +48,24 @@ jobs:
         run: >
           echo "${{ secrets.VAULT_PASSWORD }}" > $GITHUB_WORKSPACE/${{ inputs.working_directory }}/vault_password.txt
 
-      - name: Run yamllint
-        uses: daniel-mizsak/workflows/.github/actions/yaml-lint@main
-        with:
-          working_directory: ${{ inputs.working_directory }}
-          config_file: ${{ inputs.yaml_lint_config_file }}
-          strict: true
-
-      - name: Run ansible-lint
-        uses: ansible/ansible-lint@main
-        with:
-          working_directory: ${{ inputs.working_directory }}
-          args: "${{ inputs.ansible_lint_config_file && format('--config-file {0}', inputs.ansible_lint_config_file) || '' }} --format=pep8 --force-color"
-          setup_python: false
+      - name: Run megalinter
+        uses: oxsecurity/megalinter@v8
         env:
+          ENABLE_LINTERS: YAML_YAMLLINT,ANSIBLE_ANSIBLE_LINT
+          YAML_YAMLLINT_ARGUMENTS: --strict
+          YAML_YAMLLINT_CONFIG_FILE: ${{ inputs.yaml_lint_config_file }}
+          YAML_YAMLLINT_FILTER_REGEX_INCLUDE: ${{ inputs.working_directory }}
+          ANSIBLE_ANSIBLE_LINT_ARGUMENTS: --strict ${{ inputs.working_directory }}
+          ANSIBLE_ANSIBLE_LINT_CONFIG_FILE: ${{ inputs.ansible_lint_config_file }}
           ANSIBLE_VAULT_PASSWORD_FILE: $GITHUB_WORKSPACE/${{ inputs.working_directory }}/vault_password.txt
 
       - name: Install molecule dependencies
         run: >
-          pip install molecule==24.12.0 molecule-plugins[docker]
+          pip install molecule molecule-plugins[docker]
 
       - name: Run molecule
         run: >
           molecule test
         env:
           ANSIBLE_VAULT_PASSWORD_FILE: $GITHUB_WORKSPACE/${{ inputs.working_directory }}/vault_password.txt
-          ANSIBLE_FORCE_COLOR: "1"
+          ANSIBLE_FORCE_COLOR: 1

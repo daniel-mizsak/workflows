@@ -1,0 +1,11 @@
+---
+name: "Molecule"
+description: "Ansible unit testing using molecule"
+
+outputs:
+  logs:
+    description: "Logs of molecule"
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
