@@ -25,4 +25,4 @@ jobs:
       - name: Run nix-format
         uses: ./.github/actions/nix-format
         with:
-          working_directory: .
+          working_directory: .github
