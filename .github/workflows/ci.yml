@@ -21,8 +21,7 @@ jobs:
           config_file: files/.yamllint.yml
           strict: true
 
-
-      - name: Run nix-format
-        uses: ./.github/actions/nix-format
+      - name: Run csharpier
+        uses: ./.github/actions/csharp-format
         with:
-          working_directory: .github
+          working_directory: .
