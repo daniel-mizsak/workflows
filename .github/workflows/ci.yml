@@ -20,3 +20,9 @@ jobs:
           working_directory: .
           config_file: files/.yamllint.yml
           strict: true
+
+
+      - name: Run nix-format
+        uses: ./.github/actions/nix-format
+        with:
+          working_directory: .
