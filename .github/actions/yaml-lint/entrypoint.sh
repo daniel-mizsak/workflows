@@ -18,4 +18,10 @@ echo 'logs<<EOF' >> "$GITHUB_OUTPUT"
 cat "$LOGFILE_PATH" >> "$GITHUB_OUTPUT"
 echo 'EOF' >> "$GITHUB_OUTPUT"
 
+if [[ $exitcode -eq 0 ]]; then
+    echo "✅ YAML linting passed successfully." >> "$GITHUB_STEP_SUMMARY"
+else
+    echo "❌ YAML linting failed." >> "$GITHUB_STEP_SUMMARY"
+fi
+
 exit $exitcode
