@@ -32,4 +32,4 @@ repos:
     rev: v1.35.1
     hooks:
       - id: yamllint
-        args: [--strict, --config-file=files/.yamllint.yml]
+        args: [--strict, --config-file=.github/linters/.yamllint.yml]

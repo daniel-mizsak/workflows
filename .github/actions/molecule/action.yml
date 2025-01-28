@@ -5,7 +5,8 @@ description: "Ansible unit testing using molecule"
 inputs:
   working_directory:
     description: "Directory for running the action"
-    required: true
+    required: false
+    default: "."
 
 runs:
   using: "composite"
@@ -24,3 +25,4 @@ runs:
       env:
         ANSIBLE_VAULT_PASSWORD_FILE: ${{ github.workspace }}/${{ inputs.working_directory }}/${{ env.ANSIBLE_VAULT_PASSWORD_FILE }}
         ANSIBLE_FORCE_COLOR: 1
+# TODO: Add summary.

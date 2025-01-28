@@ -11,7 +11,7 @@ Lint Yaml files using yamllint
       working_directory: "."
 
       # Configuration file, relative to the working directory
-      config_file: ".yamllint"
+      config_file: ".yamllint.yml"
 
       # Return non-zero exit code on warnings as well as errors
       strict: "false"

@@ -17,5 +17,5 @@ jobs:
       - name: Run yamllint
         uses: ./.github/actions/yaml-lint
         with:
-          config_file: files/.yamllint.yml
+          config_file: .github/linters/.yamllint.yml
           strict: true

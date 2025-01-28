@@ -13,17 +13,17 @@ Actions
 
 | Name | Description | Content |
 |:---------|:--------:|:------------|
-| csharp-format | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/actions/csharp-format-readme.md" target="_blank">csharp-format-readme</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/actions/csharp-format/action.yml" target="_blank">csharp-format.yml</a> |
-| nix-format | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/actions/nix-format-readme.md" target="_blank">nix-format-readme</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/actions/nix-format/action.yml" target="_blank">nix-format.yml</a> |
-| yaml-lint | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/actions/yaml-lint-readme.md" target="_blank">yaml-lint-readme</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/actions/yaml-lint/action.yml" target="_blank">yaml-lint.yml</a> |
+| csharp-format | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/actions/csharp-format.md" target="_blank">csharp-format documentation</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/actions/csharp-format/action.yml" target="_blank">csharp-format content</a> |
+| molecule | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/actions/molecule.md" target="_blank">molecule documentation</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/actions/molecule/action.yml" target="_blank">molecule content</a> |
+| nix-format | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/actions/nix-format.md" target="_blank">nix-format documentation</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/actions/nix-format/action.yml" target="_blank">nix-format content</a> |
+| yaml-lint | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/actions/yaml-lint.md" target="_blank">yaml-lint documentation</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/actions/yaml-lint/action.yml" target="_blank">yaml-lint content</a> |
 
 <br><br>
 Workflows
 
 | Name | Description | Content |
 |:---------|:--------:|:------------|
-| ansible | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/workflows/ansible-readme.md" target="_blank">ansible-readme</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/workflows/ansible.yml" target="_blank">ansible.yml</a> |
-| tox | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/workflows/tox-readme.md" target="_blank">tox-readme</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/workflows/tox.yml" target="_blank">tox.yml</a> |
+| tox | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/workflows/tox.md" target="_blank">tox documentation</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/workflows/tox.yml" target="_blank">tox content</a> |
 
 
 ## Notes
