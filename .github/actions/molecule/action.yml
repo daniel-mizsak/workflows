@@ -5,13 +5,63 @@ description: "Ansible unit testing using molecule"
 inputs:
   working_directory:
     description: "Directory for running the action"
+    required: true
+  ansible_vault_password_file:
+    description: "Path to the Ansible vault password file"
+    required: true
 
 outputs:
   logs:
     description: "Logs of molecule"
+    value: ${{ steps.molecule.outputs.logs }}
 
 runs:
-  using: "docker"
-  image: "Dockerfile"
-  args:
-    - ${{ inputs.working_directory }}
+  using: "composite"
+
+  steps:
+    - name: Install molecule
+      shell: bash
+      run: |
+        pip install --upgrade pip
+        pip install --no-cache-dir molecule==24.12.0 molecule-plugins[docker]==23.6.0
+
+    - name: Set up environment
+      shell: bash
+      working-directory: ${{ inputs.working_directory }}
+      run: |
+        ANSIBLE_VAULT_PASSWORD_FILE=$(pwd)/"${ANSIBLE_VAULT_PASSWORD_FILE}"
+        export ANSIBLE_VAULT_PASSWORD_FILE=$ANSIBLE_VAULT_PASSWORD_FILE
+        export ANSIBLE_FORCE_COLOR=1
+        export LOGFILE_PATH=$(mktemp /tmp/molecule.XXXXXX)
+
+    - name: Test steps
+      shell: bash
+      working-directory: ${{ inputs.working_directory }}
+      run: |
+        pwd
+        ls -la
+        echo $ANSIBLE_VAULT_PASSWORD_FILE
+
+    - name: Run Molecule tests
+      shell: bash
+      id: molecule
+      working-directory: ${{ inputs.working_directory }}
+      run: |
+        sudo molecule test 2>&1 | tee -a "$LOGFILE_PATH"
+        exitcode=$?
+
+        echo 'logs<<EOF' >> "$GITHUB_OUTPUT"
+        cat "$LOGFILE_PATH" >> "$GITHUB_OUTPUT"
+        echo 'EOF' >> "$GITHUB_OUTPUT"
+
+        exit $exitcode
+
+    - name: Check Molecule test result
+      if: failure()
+      shell: bash
+      run: echo "❌ Molecule failed." >> "$GITHUB_STEP_SUMMARY"
+
+    - name: Check Molecule test result
+      if: success()
+      shell: bash
+      run: echo "✅ Molecule passed successfully." >> "$GITHUB_STEP_SUMMARY"
