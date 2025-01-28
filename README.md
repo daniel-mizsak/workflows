@@ -24,3 +24,11 @@ Workflows
 |:---------|:--------:|:------------|
 | ansible | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/workflows/ansible-readme.md" target="_blank">ansible-readme</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/workflows/ansible.yml" target="_blank">ansible.yml</a> |
 | tox | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/workflows/tox-readme.md" target="_blank">tox-readme</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/workflows/tox.yml" target="_blank">tox.yml</a> |
+
+
+## Notes
+When [creating a new action](https://docs.github.com/en/actions/sharing-automations/creating-actions/creating-a-docker-container-action#writing-the-action-code), make sure that `entrypoint.sh` is executable:
+```bash
+git add entrypoint.sh
+git update-index --chmod=+x entrypoint.sh
+```

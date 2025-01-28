@@ -3,6 +3,9 @@ set -o pipefail
 
 LOGFILE_PATH=$(mktemp /tmp/molecule.XXXXXX)
 cd "${INPUT_WORKING_DIRECTORY:-.}" || exit 1
+export ANSIBLE_FORCE_COLOR=1
+ANSIBLE_VAULT_PASSWORD_FILE=$(pwd)/"$ANSIBLE_VAULT_PASSWORD_FILE"
+export ANSIBLE_VAULT_PASSWORD_FILE=$ANSIBLE_VAULT_PASSWORD_FILE
 molecule test 2>&1 | tee -a "$LOGFILE_PATH"
 exitcode=$?
 
