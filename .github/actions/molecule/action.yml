@@ -2,6 +2,10 @@
 name: "Molecule"
 description: "Ansible unit testing using molecule"
 
+inputs:
+  working_directory:
+    description: "Directory for running the action"
+
 outputs:
   logs:
     description: "Logs of molecule"
@@ -9,3 +13,5 @@ outputs:
 runs:
   using: "docker"
   image: "Dockerfile"
+  args:
+    - ${{ inputs.working_directory }}

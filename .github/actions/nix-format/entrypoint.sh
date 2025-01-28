@@ -12,9 +12,9 @@ cat "$LOGFILE_PATH" >> "$GITHUB_OUTPUT"
 echo 'EOF' >> "$GITHUB_OUTPUT"
 
 if [[ $exitcode -eq 0 ]]; then
-    echo "✅ Nix formatting passed successfully." >> "$GITHUB_STEP_SUMMARY"
+    echo "✅ Nix Format passed successfully." >> "$GITHUB_STEP_SUMMARY"
 else
-    echo "❌ Nix formatting failed." >> "$GITHUB_STEP_SUMMARY"
+    echo "❌ Nix Format failed." >> "$GITHUB_STEP_SUMMARY"
 fi
 
 exit $exitcode
