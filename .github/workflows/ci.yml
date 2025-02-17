@@ -19,3 +19,15 @@ jobs:
         with:
           config_file: .github/linters/.yamllint.yml
           strict: true
+
+      - name: Run hadolint
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: .github/actions/**/Dockerfile
+          recursive: true
+
+      - name: Run shell linter
+        uses: luizm/action-sh-checker@v0.9.0
+        env:
+          SHELLCHECK_OPTS: --external-sources --exclude=SC2129
+          SHFMT_OPTS: --indent 4 --space-redirects

@@ -1,7 +1,8 @@
 FROM python:3.12-slim
 
 COPY requirements.txt /requirements.txt
-RUN pip install --upgrade pip && \
+# hadolint ignore=DL3013
+RUN pip install --no-cache-dir --upgrade pip && \
   pip install --no-cache-dir --requirement /requirements.txt
 
 COPY entrypoint.sh /entrypoint.sh

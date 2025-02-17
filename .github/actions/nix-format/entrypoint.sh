@@ -1,5 +1,6 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i bash --packages alejandra
+# shellcheck shell=bash
 set -o pipefail
 
 LOGFILE_PATH=$(mktemp /tmp/alejandra.XXXXXX)
