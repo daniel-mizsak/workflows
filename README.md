@@ -1,6 +1,8 @@
 ## <div align="center">📑 workflows</div>
 
 <div align="center">
+<a href="https://github.com/daniel-mizsak/workflows/actions/workflows/ci.yml" target="_blank"><img src="https://github.com/daniel-mizsak/workflows/actions/workflows/ci.yml/badge.svg?branch=main" alt="build status"></a>
+<a href="https://results.pre-commit.ci/latest/github/daniel-mizsak/workflows/main" target="_blank"><img src="https://results.pre-commit.ci/badge/github/daniel-mizsak/workflows/main.svg" alt="pre-commit.ci status"></a>
 <a href="ttps://img.shields.io/github/license/daniel-mizsak/workflows" target="_blank"><img src="https://img.shields.io/github/license/daniel-mizsak/workflows" alt="license"></a>
 </div>
 
