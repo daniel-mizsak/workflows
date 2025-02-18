@@ -2,7 +2,7 @@
 
 Lint Yaml files using yamllint
 
-[Example usage](#)
+[Example usage](https://github.com/daniel-mizsak/mtjd/blob/main/.github/workflows/ci.yml)
 
 ```yaml
     uses: daniel-mizsak/workflows/.github/actions/yaml-lint@main
