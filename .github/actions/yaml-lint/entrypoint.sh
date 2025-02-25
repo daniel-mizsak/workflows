@@ -3,6 +3,8 @@ set -o pipefail
 
 if [[ -n "$INPUT_CONFIG_FILE" ]]; then
     options+=(--config-file "$INPUT_CONFIG_FILE")
+else
+    options+=(--config-file "/.yamllint.yml")
 fi
 
 if [[ "$INPUT_STRICT" = "true" ]]; then

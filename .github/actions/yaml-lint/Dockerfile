@@ -5,6 +5,7 @@ COPY requirements.txt /requirements.txt
 RUN pip install --no-cache-dir --upgrade pip && \
   pip install --no-cache-dir --requirement /requirements.txt
 
+COPY .yamllint.yml /.yamllint.yml
 COPY entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]

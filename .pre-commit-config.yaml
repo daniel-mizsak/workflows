@@ -22,15 +22,14 @@ repos:
       - id: end-of-file-fixer
       - id: trailing-whitespace
 
+  # gitleaks
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.23.3
+    hooks:
+      - id: gitleaks
+
   # codespell
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.3.0
+    rev: v2.4.1
     hooks:
       - id: codespell
-
-  # yamllint
-  - repo: https://github.com/adrienverge/yamllint
-    rev: v1.35.1
-    hooks:
-      - id: yamllint
-        args: [--strict, --config-file=.github/linters/.yamllint.yml]
