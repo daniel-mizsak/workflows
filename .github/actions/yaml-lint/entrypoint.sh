@@ -10,6 +10,7 @@ fi
 if [[ "$INPUT_STRICT" = "true" ]]; then
     options+=(--strict)
 fi
+pwd
 ls -la
 ls -la /
 
