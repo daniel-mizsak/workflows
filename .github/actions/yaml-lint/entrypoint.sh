@@ -3,11 +3,15 @@ set -o pipefail
 
 if [[ -n "$INPUT_CONFIG_FILE" ]]; then
     options+=(--config-file "$INPUT_CONFIG_FILE")
+else
+    options+=(--config-file "/.yamllint.yml")
 fi
 
 if [[ "$INPUT_STRICT" = "true" ]]; then
     options+=(--strict)
 fi
+ls -la
+ls -la /
 
 LOGFILE_PATH=$(mktemp /tmp/yamllint.XXXXXX)
 cd "${INPUT_WORKING_DIRECTORY:-.}" || exit 1
