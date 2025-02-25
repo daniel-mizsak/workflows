@@ -33,10 +33,3 @@ repos:
     rev: v2.4.1
     hooks:
       - id: codespell
-
-  # yamllint
-  - repo: https://github.com/adrienverge/yamllint
-    rev: v1.35.1
-    hooks:
-      - id: yamllint
-        args: [--strict, --config-file=.github/linters/.yamllint.yml]

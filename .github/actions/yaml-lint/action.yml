@@ -7,7 +7,9 @@ inputs:
     description: "Directory for running the action"
     required: false
   config_file:
-    description: "Configuration file, relative to the working directory"
+    description: |
+      Configuration file, relative to the working directory
+      Will use default configuration if not provided
     required: false
   strict:
     description: "Return non-zero exit code on warnings as well as errors"

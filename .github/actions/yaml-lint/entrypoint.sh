@@ -10,9 +10,6 @@ fi
 if [[ "$INPUT_STRICT" = "true" ]]; then
     options+=(--strict)
 fi
-pwd
-ls -la
-ls -la /
 
 LOGFILE_PATH=$(mktemp /tmp/yamllint.XXXXXX)
 cd "${INPUT_WORKING_DIRECTORY:-.}" || exit 1
