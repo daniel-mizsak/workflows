@@ -11,6 +11,7 @@ inputs:
     required: false
   strict:
     description: "Return non-zero exit code on warnings as well as errors"
+    default: "true"
     required: false
 
 outputs:
