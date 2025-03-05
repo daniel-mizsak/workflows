@@ -23,6 +23,5 @@ runs:
       run: >
         molecule test
       env:
-        ANSIBLE_VAULT_PASSWORD_FILE: ${{ github.workspace }}/${{ inputs.working_directory }}/${{ env.ANSIBLE_VAULT_PASSWORD_FILE }}
         ANSIBLE_FORCE_COLOR: 1
 # TODO: Add summary.
