@@ -5,7 +5,7 @@ Lint Yaml files using yamllint
 [Example usage](https://github.com/daniel-mizsak/mtjd/blob/main/.github/workflows/ci.yml)
 
 ```yaml
-    uses: daniel-mizsak/workflows/.github/actions/yaml-lint@main
+    uses: daniel-mizsak/workflows/.github/actions/yaml-lint@v1
     with:
       # Directory for running the action
       working_directory: "."

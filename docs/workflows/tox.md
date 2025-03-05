@@ -5,7 +5,7 @@ Python CI/CD
 [Example usage](https://github.com/daniel-mizsak/python-package-template/blob/main/.github/workflows/ci.yml)
 
 ```yaml
-    uses: daniel-mizsak/workflows/.github/workflows/tox.yml@main
+    uses: daniel-mizsak/workflows/.github/workflows/tox.yml@v1
     with:
       # Directory for running the workflow
       working_directory: "."
