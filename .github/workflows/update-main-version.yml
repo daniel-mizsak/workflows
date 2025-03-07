@@ -20,7 +20,7 @@ jobs:
       - name: Extract release info
         run: |
           RELEASE_TAG="${{ github.ref_name }}"
-          MAJOR_VERSION=$(echo $RELEASE_TAG | grep --only-matching "^v[0-9]\+")
+          MAJOR_VERSION=$(echo $RELEASE_TAG | grep --extended-regexp --only-matching "^v[0-9]+")
           echo "MAJOR_VERSION=$MAJOR_VERSION" >> "$GITHUB_ENV"
           echo "RELEASE_TAG=$RELEASE_TAG" >> "$GITHUB_ENV"
 
