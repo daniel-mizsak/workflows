@@ -94,14 +94,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check out the codebase
+        uses: actions/checkout@v4
+
       - name: Download codecov artifacts
         uses: actions/download-artifact@v4
         with:
           name: codecov
-          path: coverage.xml
+
+      - name: Debug step
+        run: |
+          ls -la .
+          cat ./coverage.xml
 
       - name: Publish codecov artifacts to codecov.io
-        uses: codecov/codecov-action@v5.4.0
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
