@@ -53,18 +53,18 @@ jobs:
 
       - name: Install dependencies
         run: >
-          pip install tox tox-gh
+          pip install tox tox-gh codecov-cli
 
       - name: Run tests with tox
         run: >
           tox
 
-      - name: Upload codecov artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: codecov
-          path: .tox/artifacts/coverage.xml
-          if-no-files-found: ignore
+      - name: Upload codecov
+        if: ${{ inputs.codecov }}
+        run: |
+          if [[ -f "coverage.xml" ]]; then
+            codecovcli upload-process --fail-on-error --token "${{ secrets.CODECOV_TOKEN }}"
+          fi
 
       - name: Archive docs artifacts
         # Inspired by: https://github.com/actions/upload-pages-artifact/blob/main/action.yml
@@ -86,29 +86,3 @@ jobs:
           name: build
           path: .tox/artifacts/dist
           if-no-files-found: ignore
-
-
-  codecov-publish:
-    if: ${{ inputs.codecov }}
-    needs: tox
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check out the codebase
-        uses: actions/checkout@v4
-
-      - name: Download codecov artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: codecov
-
-      - name: Debug step
-        run: |
-          ls -la .
-          cat ./coverage.xml
-
-      - name: Publish codecov artifacts to codecov.io
-        uses: codecov/codecov-action@v5
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          fail_ci_if_error: true
