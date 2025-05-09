@@ -16,8 +16,8 @@ on:
 
       codecov:
         description: |
-          Whether to upload coverage artifacts and publish to codecov
-          It assumes that tox (somewhere) generates .tox/artifacts/coverage.xml
+          Whether to upload coverage to codecov
+          It assumes that tox generates coverage.xml
         default: false
         type: boolean
 
@@ -59,7 +59,14 @@ jobs:
         run: >
           tox
 
-      - name: Upload codecov
+      - name: Upload coverage artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: .tox/artifacts/htmlcov
+          if-no-files-found: ignore
+
+      - name: Upload coverage to codecov
         if: ${{ inputs.codecov }}
         run: |
           if [[ -f "coverage.xml" ]]; then
