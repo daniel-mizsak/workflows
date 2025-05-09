@@ -16,8 +16,8 @@ on:
 
       codecov:
         description: |
-          Whether to upload coverage artifacts and publish to codecov
-          It assumes that tox (somewhere) generates .tox/artifacts/coverage.xml
+          Whether to upload coverage to codecov
+          It assumes that tox generates coverage.xml
         default: false
         type: boolean
 
@@ -53,18 +53,25 @@ jobs:
 
       - name: Install dependencies
         run: >
-          pip install tox tox-gh
+          pip install tox tox-gh codecov-cli
 
       - name: Run tests with tox
         run: >
           tox
 
-      - name: Upload codecov artifacts
+      - name: Upload coverage artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: codecov
-          path: .tox/artifacts/coverage.xml
+          name: coverage
+          path: .tox/artifacts/htmlcov
           if-no-files-found: ignore
+
+      - name: Upload coverage to codecov
+        if: ${{ inputs.codecov }}
+        run: |
+          if [[ -f "coverage.xml" ]]; then
+            codecovcli upload-process --fail-on-error --token "${{ secrets.CODECOV_TOKEN }}"
+          fi
 
       - name: Archive docs artifacts
         # Inspired by: https://github.com/actions/upload-pages-artifact/blob/main/action.yml
@@ -86,22 +93,3 @@ jobs:
           name: build
           path: .tox/artifacts/dist
           if-no-files-found: ignore
-
-
-  codecov-publish:
-    if: ${{ inputs.codecov }}
-    needs: tox
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Download codecov artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: codecov
-          path: coverage.xml
-
-      - name: Publish codecov artifacts to codecov.io
-        uses: codecov/codecov-action@v5.4.2
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          fail_ci_if_error: true
