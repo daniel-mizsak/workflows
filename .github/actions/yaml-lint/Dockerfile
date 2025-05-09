@@ -7,5 +7,6 @@ RUN pip install --no-cache-dir --upgrade pip && \
 
 COPY .yamllint.yml /.yamllint.yml
 COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]

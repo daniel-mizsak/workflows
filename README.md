@@ -29,14 +29,6 @@ Workflows
 |:--------------|:--------|
 | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/workflows/tox.md" target="_blank">tox documentation</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/workflows/tox.yml" target="_blank">tox content</a> |
 
-
-## Notes
-When [creating a new action](https://docs.github.com/en/actions/sharing-automations/creating-actions/creating-a-docker-container-action#writing-the-action-code), make sure that `entrypoint.sh` is executable:
-```bash
-git add entrypoint.sh
-git update-index --chmod=+x entrypoint.sh
-```
-
 <hr>
 
 <div align="center">
