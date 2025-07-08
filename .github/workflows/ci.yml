@@ -15,7 +15,6 @@ concurrency:
 jobs:
   ci:
     runs-on: ubuntu-latest
-
     steps:
       - name: Check out the codebase
         uses: actions/checkout@v4.2.2
