@@ -38,12 +38,12 @@ jobs:
 
     steps:
       - name: Check out the codebase
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 0
 
       - name: Set up python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v5.6.0
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -60,7 +60,7 @@ jobs:
           tox
 
       - name: Upload coverage artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: coverage
           path: .tox/artifacts/htmlcov
@@ -81,14 +81,14 @@ jobs:
           fi
 
       - name: Upload archived docs artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: docs
           path: .tox/artifacts/docs.tar
           if-no-files-found: ignore
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: build
           path: .tox/artifacts/dist

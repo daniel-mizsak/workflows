@@ -1,4 +1,4 @@
-## <div align="center">📑 workflows</div>
+# <div align="center">📑 workflows</div>
 <div align="center">
     <kbd>
         <a href="https://github.com/daniel-mizsak/workflows/actions/workflows/ci.yml" target="_blank"><img src="https://github.com/daniel-mizsak/workflows/actions/workflows/ci.yml/badge.svg?branch=main" alt="build status"></a>
@@ -17,10 +17,8 @@ Actions
 
 | Documentation | Content |
 |:--------------|:--------|
-| <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/actions/csharp-format.md" target="_blank">csharp-format documentation</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/actions/csharp-format/action.yml" target="_blank">csharp-format content</a> |
 | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/actions/molecule.md" target="_blank">molecule documentation</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/actions/molecule/action.yml" target="_blank">molecule content</a> |
 | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/actions/nix-format.md" target="_blank">nix-format documentation</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/actions/nix-format/action.yml" target="_blank">nix-format content</a> |
-| <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/actions/yaml-lint.md" target="_blank">yaml-lint documentation</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/actions/yaml-lint/action.yml" target="_blank">yaml-lint content</a> |
 
 <br><br>
 Workflows

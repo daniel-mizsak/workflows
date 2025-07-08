@@ -16,19 +16,10 @@ jobs:
 
     steps:
       - name: Check out the codebase
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2
 
-      - name: Run yamllint
-        uses: ./.github/actions/yaml-lint
-
-      - name: Run hadolint
-        uses: hadolint/hadolint-action@v3.1.0
-        with:
-          dockerfile: .github/actions/**/Dockerfile
-          recursive: true
-
-      - name: Run shell linter
-        uses: luizm/action-sh-checker@v0.9.0
+      - name: Run megalinter
+        uses: oxsecurity/megalinter/flavors/cupcake@v8.8.0
         env:
-          SHELLCHECK_OPTS: --external-sources --exclude=SC2129
-          SHFMT_OPTS: --indent 4 --space-redirects
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MEGALINTER_CONFIG: .github/linters/.megalinter.yml

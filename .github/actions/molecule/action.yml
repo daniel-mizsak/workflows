@@ -10,12 +10,11 @@ inputs:
 
 runs:
   using: "composite"
-
   steps:
     - name: Install molecule dependencies
       shell: bash
       run: >
-        pip install molecule==24.12.0 molecule-plugins[docker]==23.6.0
+        pip install molecule molecule-plugins[docker]
 
     - name: Run molecule
       shell: bash
