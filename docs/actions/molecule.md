@@ -1,8 +1,6 @@
 ## MOLECULE
 
-Ansible unit testing using molecule
-
-[Example usage](https://github.com/mlops-top/vps-setup/blob/main/.github/workflows/ci.yml)
+Ansible testing using molecule
 
 ```yaml
     uses: daniel-mizsak/workflows/.github/actions/molecule@v1
