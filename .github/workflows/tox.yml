@@ -68,8 +68,8 @@ jobs:
       - name: Upload coverage to codecov
         if: ${{ inputs.codecov }}
         run: |
-          if [[ -f "coverage.xml" ]]; then
-            codecovcli upload-process --fail-on-error --token "${{ secrets.CODECOV_TOKEN }}"
+          if [[ -f ".tox/artifacts/coverage.xml" ]]; then
+            codecovcli upload-process --file .tox/artifacts/coverage.xml --fail-on-error --token "${{ secrets.CODECOV_TOKEN }}"
           fi
 
       - name: Archive docs artifacts
