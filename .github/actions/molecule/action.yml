@@ -1,0 +1,26 @@
+---
+name: "Molecule"
+description: "Ansible unit testing using molecule"
+
+inputs:
+  working_directory:
+    description: "Directory for running the action"
+    required: false
+    default: "."
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install molecule dependencies
+      shell: bash
+      run: >
+        pip install molecule molecule-plugins[docker]
+
+    - name: Run molecule
+      shell: bash
+      working-directory: ${{ inputs.working_directory }}
+      run: >
+        molecule test
+      env:
+        ANSIBLE_FORCE_COLOR: 1
+# TODO: Add summary.

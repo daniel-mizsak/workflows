@@ -1,0 +1,94 @@
+---
+name: "Python CI/CD"
+
+on:
+  workflow_call:
+    inputs:
+      working_directory:
+        description: "Directory for running the workflow"
+        default: "."
+        type: string
+
+      python_versions:
+        description: "List of python versions, must correspond to tox configuration"
+        default: "['3.12']"
+        type: string
+
+      codecov:
+        description: |
+          Whether to upload coverage to codecov
+          It assumes that tox generates coverage.xml
+        default: false
+        type: boolean
+
+    secrets:
+      CODECOV_TOKEN:
+        description: "Token to use for codecov"
+        required: false
+
+jobs:
+  tox:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_directory }}
+    strategy:
+      matrix:
+        python-version: ${{ fromJson(inputs.python_versions) }}
+    steps:
+      - name: Check out the codebase
+        uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Set up python
+        uses: actions/setup-python@v5.6.0
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Upgrade pip
+        run: >
+          python -m pip install --upgrade pip
+
+      - name: Install dependencies
+        run: >
+          pip install tox tox-gh codecov-cli
+
+      - name: Run tests with tox
+        run: >
+          tox
+
+      - name: Upload coverage artifacts
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: coverage
+          path: .tox/artifacts/htmlcov
+          if-no-files-found: ignore
+
+      - name: Upload coverage to codecov
+        if: ${{ inputs.codecov }}
+        run: |
+          if [[ -f "coverage.xml" ]]; then
+            codecovcli upload-process --fail-on-error --token "${{ secrets.CODECOV_TOKEN }}"
+          fi
+
+      - name: Archive docs artifacts
+        # Inspired by: https://github.com/actions/upload-pages-artifact/blob/main/action.yml
+        run: |
+          if [[ -d ".tox/artifacts/docs" ]]; then
+            tar --create --file .tox/artifacts/docs.tar .tox/artifacts/docs
+          fi
+
+      - name: Upload archived docs artifacts
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: docs
+          path: .tox/artifacts/docs.tar
+          if-no-files-found: ignore
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: build
+          path: .tox/artifacts/dist
+          if-no-files-found: ignore
