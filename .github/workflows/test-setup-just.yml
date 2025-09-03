@@ -1,0 +1,20 @@
+---
+on:
+  push:
+    branches:
+      - feature/just
+
+jobs:
+  test-setup-just:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the codebase
+        uses: actions/checkout@v5.0.0
+
+      - name: Setup just
+        uses: ./.github/actions/setup-just
+
+      - name: Verify just installation
+        shell: bash
+        run: >
+          just --version

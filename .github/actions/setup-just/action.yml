@@ -1,0 +1,14 @@
+---
+name: "Setup Just"
+description: "Setup Just using uvx"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install uv
+      uses: astral-sh/setup-uv@v6
+
+    - name: Install just
+      shell: bash
+      run: >
+        uv tool install rust-just
