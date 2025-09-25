@@ -1,0 +1,2 @@
+molecule==25.9.0
+molecule-plugins[docker]==25.8.12

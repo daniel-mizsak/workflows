@@ -1,0 +1,37 @@
+---
+name: "Molecule"
+description: "Ansible unit testing using molecule"
+
+inputs:
+  working_directory:
+    description: "Directory for running the action"
+    required: false
+    default: "."
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install uv
+      uses: astral-sh/setup-uv@v6.7.0
+
+    - name: Install molecule
+      shell: bash
+      run: >
+        uv pip install --requirements ${{ github.action_path }}/requirements.txt
+
+    - name: Run molecule
+      shell: bash
+      working-directory: ${{ inputs.working_directory }}
+      run: uv run molecule test
+      env:
+        ANSIBLE_FORCE_COLOR: 1
+
+    - name: Add success summary
+      if: ${{ success() }}
+      shell: bash
+      run: echo "✅ Molecule passed successfully." >> "$GITHUB_STEP_SUMMARY"
+
+    - name: Add failure summary
+      if: ${{ failure() }}
+      shell: bash
+      run: echo "❌ Molecule failed." >> "$GITHUB_STEP_SUMMARY"
