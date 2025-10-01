@@ -1,0 +1,19 @@
+---
+name: "Setup just"
+description: "Setup uv and install just"
+
+inputs:
+  python-version:
+    description: "Python version installed by uv"
+    default: "3.12"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install uv
+      uses: astral-sh/setup-uv@v6.8.0
+
+    - name: Install just
+      shell: bash
+      run: >
+        uv tool install rust-just --with-requirements ${{ github.action_path }}/requirements.txt

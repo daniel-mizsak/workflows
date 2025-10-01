@@ -1,0 +1,21 @@
+---
+name: "Setup tox"
+description: "Setup uv and install tox"
+
+inputs:
+  python-version:
+    description: "Python version"
+    default: "3.12"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install uv
+      uses: astral-sh/setup-uv@v6.8.0
+      with:
+        python-version: ${{ inputs.python-version }}
+
+    - name: Install tox
+      shell: bash
+      run: >
+        uv tool install tox --with-requirements ${{ github.action_path }}/requirements.txt
