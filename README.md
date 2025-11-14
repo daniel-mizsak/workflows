@@ -1,39 +1,32 @@
-# <div align="center">🖨 repository-template</div>
+# <div align="center">📑 workflows</div>
 
 <div align="center">
     <kbd>
-        <a href="https://github.com/daniel-mizsak/repository-template/actions/workflows/ci.yml" target="_blank"><img src="https://github.com/daniel-mizsak/repository-template/actions/workflows/ci.yml/badge.svg" alt="build status"></a>
-        <a href="https://results.pre-commit.ci/latest/github/daniel-mizsak/repository-template/main" target="_blank"><img src="https://results.pre-commit.ci/badge/github/daniel-mizsak/repository-template/main.svg" alt="pre-commit.ci status"></a>
-        <a href="https://img.shields.io/github/license/daniel-mizsak/repository-template" target="_blank"><img src="https://img.shields.io/github/license/daniel-mizsak/repository-template" alt="license"></a>
+        <a href="https://github.com/daniel-mizsak/workflows/actions/workflows/ci.yml" target="_blank"><img src="https://github.com/daniel-mizsak/workflows/actions/workflows/ci.yml/badge.svg" alt="build status"></a>
+        <a href="https://results.pre-commit.ci/latest/github/daniel-mizsak/workflows/main" target="_blank"><img src="https://results.pre-commit.ci/badge/github/daniel-mizsak/workflows/main.svg" alt="pre-commit.ci status"></a>
+        <a href="https://img.shields.io/github/license/daniel-mizsak/workflows" target="_blank"><img src="https://img.shields.io/github/license/daniel-mizsak/workflows" alt="license"></a>
     </kbd>
 </div>
 
 ## Overview
 
-Template for repository configurations.
+Reusable GitHub actions and workflows.
 
 ## Getting started
 
-Detailed documentation of components:
+Actions
 
-- [tools](docs/tools.md)
+| Documentation                                                                                                                          | Content                                                                                                                                     |
+| -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/actions/nix-format.md" target="_blank">nix-format documentation</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/actions/nix-format/action.yml" target="_blank">nix-format content</a> |
+| <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/actions/setup-just.md" target="_blank">setup-just documentation</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/actions/setup-just/action.yml" target="_blank">setup-just content</a> |
 
-The next topic.
+<br><br>
+Workflows
 
-<details>
-<summary>Some details</summary>
-<br>
-
-Example code snippet:
-<br>
-
-```bash
-export HELLO=world
-```
-
-</details>
-
-Additional information.
+| Documentation                                                                                                                          | Content                                                                                                                              |
+| -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/workflows/python-ci.md" target="_blank">python-ci documentation</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/workflows/python-ci.yml" target="_blank">python-ci content</a> |
 
 <hr>
 

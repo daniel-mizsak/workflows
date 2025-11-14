@@ -1,0 +1,33 @@
+---
+name: Update Main Version
+
+on:
+  release:
+    types: [released]
+
+permissions:
+  contents: write
+
+jobs:
+  update-main-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the codebase
+        uses: actions/checkout@v5.0.0
+        with:
+          fetch-depth: 0
+
+      - name: Extract release info
+        run: |
+          RELEASE_TAG="${{ github.ref_name }}"
+          MAJOR_VERSION=$(echo $RELEASE_TAG | grep --extended-regexp --only-matching "^v[0-9]+")
+          echo "MAJOR_VERSION=$MAJOR_VERSION" >> "$GITHUB_ENV"
+          echo "RELEASE_TAG=$RELEASE_TAG" >> "$GITHUB_ENV"
+
+      - name: Tag new target
+        run: >
+          git tag --force ${{ env.MAJOR_VERSION }} ${{ env.RELEASE_TAG }}
+
+      - name: Push tag
+        run: >
+          git push --force origin ${{ env.MAJOR_VERSION }}
