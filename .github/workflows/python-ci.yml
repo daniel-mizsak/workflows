@@ -1,0 +1,111 @@
+---
+name: "Python CI"
+
+on:
+  workflow_call:
+    inputs:
+      working-directory:
+        description: "Directory for running the workflow"
+        default: "."
+        type: string
+
+      python-version:
+        description: "Python version installed by uv"
+        default: "3.12"
+        type: string
+
+      coverage:
+        description: |
+          Whether to upload .artifacts/htmlcov to github
+          Path is relative to working-directory
+        default: true
+        type: boolean
+
+      codecov:
+        description: |
+          Whether to upload .artifacts/coverage.xml to codecov
+          Path is relative to working-directory
+        default: false
+        type: boolean
+
+      documentation:
+        description: |
+          Whether to upload .artifacts/site to github
+          Path is relative to working-directory
+        default: false
+        type: boolean
+
+      package:
+        description: |
+          Whether to upload .artifacts/dist to github
+          Path is relative to working-directory
+        default: false
+        type: boolean
+
+jobs:
+  python-ci:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
+    steps:
+      - name: Check out the codebase
+        uses: actions/checkout@v5.0.0
+        with:
+          fetch-depth: 0
+
+      - name: Install just
+        uses: daniel-mizsak/workflows/.github/actions/setup-just@v1
+
+      - name: Run quality checks with just
+        run: |
+          just install
+          just check-all
+
+      - name: Upload coverage artifacts
+        if: ${{ inputs.coverage }}
+        uses: actions/upload-artifact@v5.0.0
+        with:
+          name: htmlcov
+          path: ${{ inputs.working-directory }}/.artifacts/htmlcov
+          if-no-files-found: error
+
+      - name: Upload coverage to codecov
+        uses: codecov/codecov-action@v5.5.1
+        with:
+          fail_ci_if_error: true
+          files: ${{ inputs.working-directory }}/.artifacts/coverage.xml
+          use_oidc: true
+          verbose: true
+
+      - name: Build documentation
+        if: ${{ inputs.documentation }}
+        run: >
+          just build-documentation
+
+      - name: Archive documentation artifacts
+        # Inspired by: https://github.com/actions/upload-pages-artifact/blob/main/action.yml
+        if: ${{ inputs.documentation }}
+        run: >
+          tar --create --file .artifacts/site.tar .artifacts/site
+
+      - name: Upload documentation artifacts
+        if: ${{ inputs.documentation }}
+        uses: actions/upload-artifact@v5.0.0
+        with:
+          name: site
+          path: ${{ inputs.working-directory }}/.artifacts/site.tar
+          if-no-files-found: error
+
+      - name: Build package
+        if: ${{ inputs.package }}
+        run: >
+          just build-package
+
+      - name: Upload package artifacts
+        if: ${{ inputs.package }}
+        uses: actions/upload-artifact@v5.0.0
+        with:
+          name: dist
+          path: ${{ inputs.working-directory }}/.artifacts/dist
+          if-no-files-found: error

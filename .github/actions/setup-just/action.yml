@@ -1,0 +1,45 @@
+---
+name: "Setup just"
+description: "Setup rust-just with uv"
+
+inputs:
+  just-version:
+    description: "Just version to install"
+    required: false
+    default: ""
+
+  python-version:
+    description: "Python version installed by uv"
+    required: false
+    default: "3.12"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Check if uv is installed
+      id: check_uv
+      shell: bash
+      run: |
+        if command -v uv >/dev/null 2>&1; then
+          echo "uv_installed=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "uv_installed=false" >> "$GITHUB_OUTPUT"
+        fi
+
+    - name: Install uv
+      if: steps.check_uv.outputs.uv_installed != 'true'
+      uses: astral-sh/setup-uv@v7.1.3
+      with:
+        python-version: ${{ inputs.python-version }}
+
+    - name: Install just with specified version
+      if: ${{ inputs.just-version != '' }}
+      shell: bash
+      run: >
+        uv tool install rust-just==${{ inputs.just-version }}
+
+    - name: Install just from requirements
+      if: ${{ inputs.just-version == '' }}
+      shell: bash
+      run: >
+        uv tool install rust-just --with-requirements ${{ github.action_path }}/requirements.txt

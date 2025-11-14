@@ -3,6 +3,15 @@ version: 2
 
 updates:
   - package-ecosystem: "github-actions"
-    directory: "/"
+    directories:
+      - "/"
+      - ".github/actions/setup-just"
+      - ".github/actions/setup-tox"
     schedule:
-      interval: "monthly"
+      interval: "weekly"
+
+  - package-ecosystem: "uv"
+    directories:
+      - ".github/actions/setup-just"
+    schedule:
+      interval: "weekly"
