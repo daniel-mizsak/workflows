@@ -87,7 +87,7 @@ jobs:
         # Inspired by: https://github.com/actions/upload-pages-artifact/blob/main/action.yml
         if: ${{ inputs.documentation }}
         run: >
-          tar --create --file .artifacts/site.tar .artifacts/site
+          tar --directory=".artifacts/site" --create --file .artifacts/site.tar .
 
       - name: Upload documentation artifacts
         if: ${{ inputs.documentation }}
