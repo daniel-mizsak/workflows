@@ -27,6 +27,7 @@ Workflows
 | Documentation                                                                                                                          | Content                                                                                                                              |
 | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/workflows/python-ci.md" target="_blank">python-ci documentation</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/workflows/python-ci.yml" target="_blank">python-ci content</a> |
+| <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/workflows/lint.md" target="_blank">lint documentation</a>           | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/workflows/lint.yml" target="_blank">lint content</a>           |
 
 <hr>
 

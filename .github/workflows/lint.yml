@@ -1,7 +1,13 @@
 ---
 name: "Lint"
 
-on: workflow_call
+on:
+  workflow_call:
+    inputs:
+      megalinter-config:
+        description: "Path to megalinter config file"
+        default: ".github/linters/.megalinter.yml"
+        type: string
 
 jobs:
   lint:
@@ -16,4 +22,4 @@ jobs:
         uses: oxsecurity/megalinter/flavors/cupcake@v9.1.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MEGALINTER_CONFIG: .github/linters/.megalinter.yml
+          MEGALINTER_CONFIG: ${{ inputs.megalinter-config }}

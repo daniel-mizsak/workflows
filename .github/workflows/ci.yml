@@ -19,4 +19,4 @@ jobs:
   lint:
     permissions:
       pull-requests: write
-    uses: daniel-mizsak/workflows/.github/workflows/lint.yml@feature/lint-workflow
+    uses: ./.github/workflows/lint.yml
