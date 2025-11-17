@@ -17,15 +17,6 @@ concurrency:
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
     permissions:
       pull-requests: write
-    steps:
-      - name: Check out the codebase
-        uses: actions/checkout@v5.0.0
-
-      - name: Run megalinter
-        uses: oxsecurity/megalinter/flavors/cupcake@v9.1.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MEGALINTER_CONFIG: .github/linters/.megalinter.yml
+    uses: ./.github/workflows/lint.yml

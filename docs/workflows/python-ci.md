@@ -1,6 +1,6 @@
 # PYTHON-CI
 
-Python CI
+Python CI using uv and just
 
 ```yaml
 uses: daniel-mizsak/workflows/.github/workflows/python-ci.yml@v1
