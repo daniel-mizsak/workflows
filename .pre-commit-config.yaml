@@ -35,7 +35,7 @@ repos:
     rev: v1.37.1
     hooks:
       - id: yamllint
-        args: [--config-file=.github/linters/.yamllint.yml, --strict]
+        args: [--config-file=./.github/linters/.yamllint.yml, --strict]
 
   # gitleaks
   - repo: https://github.com/gitleaks/gitleaks

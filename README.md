@@ -18,8 +18,8 @@ Actions
 
 | Documentation                                                                                                                          | Content                                                                                                                                     |
 | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/actions/nix-format.md" target="_blank">nix-format documentation</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/actions/nix-format/action.yml" target="_blank">nix-format content</a> |
 | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/actions/setup-just.md" target="_blank">setup-just documentation</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/actions/setup-just/action.yml" target="_blank">setup-just content</a> |
+| <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/actions/nix-format.md" target="_blank">nix-format documentation</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/actions/nix-format/action.yml" target="_blank">nix-format content</a> |
 
 <br><br>
 Workflows
