@@ -6,7 +6,7 @@ on:
     inputs:
       megalinter-config:
         description: "Path to megalinter config file"
-        default: ".github/linters/.megalinter.yml"
+        default: "./.github/linters/.megalinter.yml"
         type: string
 
 jobs:
