@@ -1,5 +1,5 @@
 ---
-name: "Lint"
+name: Lint
 
 on:
   workflow_call:
@@ -9,11 +9,14 @@ on:
         default: "./.github/linters/.megalinter.yml"
         type: string
 
+permissions: {}
+
 jobs:
   lint:
     runs-on: ubuntu-latest
     permissions:
-      pull-requests: write
+      contents: read # checkout
+      pull-requests: write # megalinter
     steps:
       - name: Check out the codebase
         uses: actions/checkout@v6.0.0

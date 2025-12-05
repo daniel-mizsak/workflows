@@ -1,5 +1,5 @@
 ---
-name: "Python CI"
+name: Python CI
 
 on:
   workflow_call:
@@ -42,12 +42,18 @@ on:
         default: false
         type: boolean
 
+permissions: {}
+
 jobs:
   python-ci:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ${{ inputs.working-directory }}
+    permissions:
+      contents: read # checkout
+      actions: write # upload-artifact
+      id-token: write # codecov-action
     steps:
       - name: Check out the codebase
         uses: actions/checkout@v6.0.0
