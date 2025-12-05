@@ -5,12 +5,13 @@ on:
   release:
     types: [released]
 
-permissions:
-  contents: write
+permissions: {}
 
 jobs:
   update-main-version:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Check out the codebase
         uses: actions/checkout@v6.0.0
