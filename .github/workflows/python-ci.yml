@@ -70,7 +70,7 @@ jobs:
 
       - name: Upload coverage artifacts
         if: ${{ inputs.coverage }}
-        uses: actions/upload-artifact@v5.0.0
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: htmlcov
           path: ${{ inputs.working-directory }}/.artifacts/htmlcov
@@ -97,7 +97,7 @@ jobs:
 
       - name: Upload documentation artifacts
         if: ${{ inputs.documentation }}
-        uses: actions/upload-artifact@v5.0.0
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: site
           path: ${{ inputs.working-directory }}/.artifacts/site.tar
@@ -110,7 +110,7 @@ jobs:
 
       - name: Upload package artifacts
         if: ${{ inputs.package }}
-        uses: actions/upload-artifact@v5.0.0
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: dist
           path: ${{ inputs.working-directory }}/.artifacts/dist
