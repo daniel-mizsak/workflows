@@ -77,7 +77,7 @@ jobs:
           if-no-files-found: error
 
       - name: Upload coverage to codecov
-        uses: codecov/codecov-action@v5.5.1
+        uses: codecov/codecov-action@v5.5.2
         with:
           fail_ci_if_error: true
           files: ${{ inputs.working-directory }}/.artifacts/coverage.xml
