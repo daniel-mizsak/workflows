@@ -28,7 +28,7 @@ runs:
 
     - name: Install uv
       if: steps.check_uv.outputs.uv_installed != 'true'
-      uses: astral-sh/setup-uv@v7.2.1
+      uses: astral-sh/setup-uv@v7.3.0
       with:
         python-version: ${{ inputs.python-version }}
 
