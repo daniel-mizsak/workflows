@@ -11,7 +11,7 @@ on:
 
       python-version:
         description: "Python version installed by uv"
-        default: "3.12"
+        required: false
         type: string
 
       coverage:
