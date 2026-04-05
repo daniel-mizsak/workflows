@@ -6,11 +6,17 @@ Python CI using uv and just
 jobs:
   python-ci:
     permissions:
-      id-token: write # Required if codecov is true for oidc authentication
+      contents: read # checkout
+      actions: write # upload-artifact
+      id-token: write # codecov-action
     uses: daniel-mizsak/workflows/.github/workflows/python-ci.yml@v1
     with:
       # Directory for running the workflow
       working-directory: "."
+
+      # Override version specified in pyproject.toml
+      # Recommended to be used with GitHub releases
+      package-version: ${{ github.event.release.tag_name }} # "release.tag_name" is only available for "release" events.
 
       # Python version installed by uv
       python-version: "3.12"
