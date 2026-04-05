@@ -9,6 +9,13 @@ on:
         default: "."
         type: string
 
+      package-version:
+        description: |
+          Override version specified in pyproject.toml
+          Recommended to be used with GitHub releases
+        required: false
+        type: string
+
       python-version:
         description: "Python version installed by uv"
         required: false
@@ -105,6 +112,13 @@ jobs:
           name: site
           path: ${{ inputs.working-directory }}/.artifacts/site.tar
           if-no-files-found: error
+
+      - name: Set package version
+        if: ${{ inputs.package && inputs.package-version }}
+        env:
+          UV_PACKAGE_VERSION: ${{ inputs.package-version }}
+        run: >
+          uv version "${UV_PACKAGE_VERSION}"
 
       - name: Build package
         if: ${{ inputs.package }}
