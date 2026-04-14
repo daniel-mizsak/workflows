@@ -1,0 +1,10 @@
+---
+misconfigurations:
+  - id: AVD-DS-0002
+    paths:
+      - .github/actions/nix-format/Dockerfile
+    statement: Ignore Add HEALTHCHECK instruction in your Dockerfile
+  - id: AVD-DS-0026
+    paths:
+      - .github/actions/nix-format/Dockerfile
+    statement: Ignore Specify at least 1 USER command in Dockerfile with non-root user as argument
