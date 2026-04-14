@@ -1,0 +1,72 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: [
+    // See: https://docs.renovatebot.com/presets-config/#configbest-practices
+    "config:recommended",
+    "docker:pinDigests",
+    "helpers:pinGitHubActionDigests",
+    ":configMigration",
+    "abandonments:recommended",
+  ],
+
+  enabledManagers: [
+    "dockerfile",
+    "github-actions",
+    "pip_requirements",
+    "pre-commit",
+  ],
+  "pre-commit": {
+    enabled: true,
+  },
+
+  timezone: "Europe/Copenhagen",
+  schedule: ["* 0-5 * * 1"], // Every Monday before 6am.
+
+  minimumReleaseAge: "7 days",
+  internalChecksFilter: "strict",
+
+  prHourlyLimit: 0,
+  prConcurrentLimit: 0,
+
+  labels: ["dependencies"],
+  semanticCommits: "disabled",
+  separateMajorMinor: false,
+
+  suppressNotifications: ["prEditedNotification"],
+
+  packageRules: [
+    // Pin GitHub Actions to immutable SHAs.
+    {
+      matchDepTypes: ["action"],
+      pinDigests: true,
+    },
+    // Annotate GitHub Actions SHAs with a SemVer version.
+    {
+      extends: ["helpers:pinGitHubActionDigests"],
+      extractVersion: "^(?<version>v?\\d+\\.\\d+\\.\\d+)$",
+      versioning: "regex:^v?(?<major>\\d+)(\\.(?<minor>\\d+)\\.(?<patch>\\d+))?$",
+    },
+    // Group GitHub Actions dependencies in a single PR.
+    {
+      groupName: "GitHub Actions dependencies",
+      matchManagers: ["github-actions"],
+      description: "Weekly update of GitHub Actions dependencies",
+    },
+    // Group pre-commit dependencies in a single PR.
+    {
+      groupName: "pre-commit dependencies",
+      matchManagers: ["pre-commit"],
+      description: "Weekly update of pre-commit dependencies",
+    },
+    // Group Python requirements updates, including setup-just requirements.txt.
+    {
+      groupName: "Python requirements",
+      matchManagers: ["pip_requirements"],
+      description: "Weekly update of Python requirements dependencies",
+    },
+  ],
+
+  vulnerabilityAlerts: {
+    labels: ["dependencies", "security"],
+  },
+}

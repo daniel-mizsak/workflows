@@ -14,21 +14,22 @@ jobs:
       contents: write
     steps:
       - name: Check out the codebase
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Extract release info
         run: |
-          RELEASE_TAG="${{ github.ref_name }}"
-          MAJOR_VERSION=$(echo $RELEASE_TAG | grep --extended-regexp --only-matching "^v[0-9]+")
+          RELEASE_TAG="${GITHUB_REF_NAME}"
+          MAJOR_VERSION=$(echo "$RELEASE_TAG" | grep --extended-regexp --only-matching "^v[0-9]+")
           echo "MAJOR_VERSION=$MAJOR_VERSION" >> "$GITHUB_ENV"
           echo "RELEASE_TAG=$RELEASE_TAG" >> "$GITHUB_ENV"
 
       - name: Tag new target
         run: >
-          git tag --force ${{ env.MAJOR_VERSION }} ${{ env.RELEASE_TAG }}
+          git tag --force "${MAJOR_VERSION}" "${RELEASE_TAG}"
 
       - name: Push tag
         run: >
-          git push --force origin ${{ env.MAJOR_VERSION }}
+          git push --force "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" "${MAJOR_VERSION}"

@@ -16,6 +16,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  prek:
+    permissions:
+      contents: read
+    uses: ./.github/workflows/prek.yml
+
   lint:
     permissions:
       contents: read
