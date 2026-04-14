@@ -25,12 +25,12 @@ on:
         description: |
           Whether to upload .artifacts/htmlcov to github
           Path is relative to working-directory
-        default: true
+        default: false
         type: boolean
 
       codecov:
         description: |
-          Whether to upload .artifacts/coverage.xml to codecov
+          Whether to upload .artifacts/coverage.xml to github and codecov
           Path is relative to working-directory
         default: false
         type: boolean
@@ -58,17 +58,17 @@ jobs:
       run:
         working-directory: ${{ inputs.working-directory }}
     permissions:
-      contents: read # checkout
-      actions: write # upload-artifact
-      id-token: write # codecov-action
+      contents: read
     steps:
       - name: Check out the codebase
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
+          persist-credentials: false
           fetch-depth: 0
 
       - name: Install just
-        uses: daniel-mizsak/workflows/.github/actions/setup-just@v1
+        # kics-scan ignore-line
+        uses: daniel-mizsak/workflows/.github/actions/setup-just@main # zizmor: ignore[unpinned-uses]
         with:
           python-version: ${{ inputs.python-version }}
 
@@ -79,20 +79,19 @@ jobs:
 
       - name: Upload coverage artifacts
         if: ${{ inputs.coverage }}
-        uses: actions/upload-artifact@v7.0.0
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: htmlcov
           path: ${{ inputs.working-directory }}/.artifacts/htmlcov
           if-no-files-found: error
 
-      - name: Upload coverage to codecov
+      - name: Upload codecov input artifact
         if: ${{ inputs.codecov }}
-        uses: codecov/codecov-action@v6.0.0
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          fail_ci_if_error: true
-          files: ${{ inputs.working-directory }}/.artifacts/coverage.xml
-          use_oidc: true
-          verbose: true
+          name: coverage-xml
+          path: ${{ inputs.working-directory }}/.artifacts/coverage.xml
+          if-no-files-found: error
 
       - name: Build documentation
         if: ${{ inputs.documentation }}
@@ -107,7 +106,7 @@ jobs:
 
       - name: Upload documentation artifacts
         if: ${{ inputs.documentation }}
-        uses: actions/upload-artifact@v7.0.0
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: site
           path: ${{ inputs.working-directory }}/.artifacts/site.tar
@@ -127,8 +126,37 @@ jobs:
 
       - name: Upload package artifacts
         if: ${{ inputs.package }}
-        uses: actions/upload-artifact@v7.0.0
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: dist
           path: ${{ inputs.working-directory }}/.artifacts/dist
           if-no-files-found: error
+
+  codecov:
+    if: ${{ inputs.codecov }}
+    needs: python-ci
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      # Based on the documentation it is not enough to call the codecov action with only coverage.xml,
+      # the checkout action also needs to run: https://github.com/codecov/codecov-action#usage
+      - name: Check out the codebase
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Download codecov input artifact
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: coverage-xml
+          path: ${{ inputs.working-directory }}/.artifacts
+
+      - name: Upload coverage to codecov
+        uses: codecov/codecov-action@57e3a136b779b570ffcdbf80b3bdc90e7fab3de2 # v6.0.0
+        with:
+          fail_ci_if_error: true
+          files: ${{ inputs.working-directory }}/.artifacts/coverage.xml
+          use_oidc: true
+          verbose: true

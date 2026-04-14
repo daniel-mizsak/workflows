@@ -7,9 +7,8 @@ jobs:
   python-ci:
     permissions:
       contents: read # checkout
-      actions: write # upload-artifact
-      id-token: write # codecov-action
-    uses: daniel-mizsak/workflows/.github/workflows/python-ci.yml@v1
+      # id-token: write # only if codecov: true
+    uses: daniel-mizsak/workflows/.github/workflows/python-ci.yml@v2
     with:
       # Directory for running the workflow
       working-directory: "."
@@ -22,10 +21,10 @@ jobs:
       python-version: "3.12"
 
       # Whether to upload .artifacts/htmlcov to github
-      # Path is relative to working-directory
-      coverage: true
+      # Paths are relative to working-directory
+      coverage: false
 
-      # Whether to upload .artifacts/coverage.xml to codecov
+      # Whether to upload .artifacts/coverage.xml to github and codecov
       # Path is relative to working-directory
       codecov: false
 
