@@ -20,7 +20,7 @@
   },
 
   timezone: "Europe/Copenhagen",
-  schedule: ["* 0-5 * * 1"], // Every Monday before 6am.
+  schedule: ["* 0-5 1 * *"], // First day of the month before 6am.
 
   minimumReleaseAge: "7 days",
   internalChecksFilter: "strict",
@@ -35,34 +35,44 @@
   suppressNotifications: ["prEditedNotification"],
 
   packageRules: [
-    // Pin GitHub Actions to immutable SHAs.
+    // Pin github-actions to immutable SHAs.
     {
       matchDepTypes: ["action"],
       pinDigests: true,
     },
-    // Annotate GitHub Actions SHAs with a SemVer version.
+    // Annotate github-actions SHAs with a SemVer version.
     {
       extends: ["helpers:pinGitHubActionDigests"],
       extractVersion: "^(?<version>v?\\d+\\.\\d+\\.\\d+)$",
       versioning: "regex:^v?(?<major>\\d+)(\\.(?<minor>\\d+)\\.(?<patch>\\d+))?$",
     },
-    // Group GitHub Actions dependencies in a single PR.
+    // Group github-actions dependencies in a single PR.
     {
-      groupName: "GitHub Actions dependencies",
+      groupName: "Dependencies for github-actions",
       matchManagers: ["github-actions"],
-      description: "Weekly update of GitHub Actions dependencies",
+      schedule: ["* 0-5 * * *"], // Daily before 6am.
+    },
+    // Ignore self-referencing local action updates.
+    {
+      matchManagers: ["github-actions"],
+      matchPackageNames: ["daniel-mizsak/workflows/.github/actions/setup-just"],
+      enabled: false,
+    },
+    // Group dockerfile dependencies in a single PR.
+    {
+      groupName: "Dependencies for dockerfile",
+      matchManagers: ["dockerfile"],
     },
     // Group pre-commit dependencies in a single PR.
     {
-      groupName: "pre-commit dependencies",
+      groupName: "Dependencies for pre-commit",
       matchManagers: ["pre-commit"],
-      description: "Weekly update of pre-commit dependencies",
     },
-    // Group Python requirements updates, including setup-just requirements.txt.
+    // Group pip_requirements dependencies in a single PR.
     {
-      groupName: "Python requirements",
+      groupName: "Dependencies for pip_requirements",
       matchManagers: ["pip_requirements"],
-      description: "Weekly update of Python requirements dependencies",
+      schedule: ["* 0-5 * * 1"], // First day of the week before 6am.
     },
   ],
 
