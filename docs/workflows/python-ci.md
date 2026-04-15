@@ -1,12 +1,14 @@
 # PYTHON-CI
 
-Python CI using uv and just
+Python CI using [uv](https://docs.astral.sh/uv/) and [just](https://just.systems/)
 
 ```yaml
+permissions: {}
+
 jobs:
   python-ci:
     permissions:
-      contents: read # checkout
+      contents: read
       # id-token: write # only if codecov: true
     uses: daniel-mizsak/workflows/.github/workflows/python-ci.yml@v2
     with:
