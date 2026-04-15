@@ -55,7 +55,7 @@
     // Ignore self-referencing local action updates.
     {
       matchManagers: ["github-actions"],
-      matchPackageNames: ["daniel-mizsak/workflows/.github/actions/setup-just"],
+      matchPackageNames: ["daniel-mizsak/workflows"],
       enabled: false,
     },
     // Group dockerfile dependencies in a single PR.
