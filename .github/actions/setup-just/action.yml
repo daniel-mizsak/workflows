@@ -20,9 +20,9 @@ runs:
       shell: bash
       run: |
         if command -v uv >/dev/null 2>&1; then
-          echo "uv_installed=true" >> "$GITHUB_OUTPUT"
+          echo "uv_installed=true" >> "${GITHUB_OUTPUT}"
         else
-          echo "uv_installed=false" >> "$GITHUB_OUTPUT"
+          echo "uv_installed=false" >> "${GITHUB_OUTPUT}"
         fi
 
     - name: Install uv

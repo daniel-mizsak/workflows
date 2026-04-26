@@ -3,7 +3,7 @@
 <div align="center">
     <kbd>
         <a href="https://github.com/daniel-mizsak/workflows/actions/workflows/ci.yml" target="_blank"><img src="https://github.com/daniel-mizsak/workflows/actions/workflows/ci.yml/badge.svg" alt="build status"></a>
-        <a href="https://img.shields.io/github/license/daniel-mizsak/workflows" target="_blank"><img src="https://img.shields.io/github/license/daniel-mizsak/workflows" alt="license"></a>
+        <a href="https://github.com/daniel-mizsak/workflows/blob/main/LICENSE" target="_blank"><img src="https://img.shields.io/github/license/daniel-mizsak/workflows" alt="license"></a>
     </kbd>
 </div>
 
