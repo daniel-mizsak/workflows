@@ -12,5 +12,5 @@ megalinter:
     npx mega-linter-runner --flavor cupcake --env "MEGALINTER_CONFIG=.github/linters/.megalinter.yml"
 
 [group("qa-extra")]
-pre-commit:
+prek:
     prek run --all-files
