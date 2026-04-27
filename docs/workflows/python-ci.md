@@ -9,7 +9,7 @@ jobs:
   python-ci:
     permissions:
       contents: read
-      # id-token: write # only if codecov: true
+      id-token: write
     uses: daniel-mizsak/workflows/.github/workflows/python-ci.yml@v2
     with:
       # Directory for running the workflow
