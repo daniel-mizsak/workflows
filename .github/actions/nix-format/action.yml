@@ -1,6 +1,6 @@
 ---
 name: "Nix Format"
-description: "Format Nix files with alejandra"
+description: "Format Nix files with nixfmt"
 
 inputs:
   working-directory:
@@ -9,10 +9,20 @@ inputs:
 
 outputs:
   logs:
-    description: "Logs of alejandra"
+    description: "Logs of nixfmt"
+    value: ${{ steps.nix-format.outputs.logs }}
 
 runs:
-  using: "docker"
-  image: "Dockerfile"
-  args:
-    - ${{ inputs.working-directory }}
+  using: "composite"
+  steps:
+    - name: Install Nix
+      uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
+      with:
+        summarize: false
+
+    - name: Run nixfmt
+      id: nix-format
+      shell: bash
+      env:
+        WORKING_DIRECTORY: ${{ inputs.working-directory }}
+      run: ${{ github.action_path }}/entrypoint.sh

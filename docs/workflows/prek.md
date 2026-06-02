@@ -15,5 +15,5 @@ jobs:
       extra-args: "--all-files"
 
       # Comma-separated list of hooks or projects to skip
-      skip: "shellcheck, alejandra-system"
+      skip: "shellcheck, run-nixfmt"
 ```

@@ -1,6 +1,6 @@
 # NIX FORMAT
 
-Format nix files with alejandra
+Format nix files with nixfmt
 
 ```yaml
 uses: daniel-mizsak/workflows/.github/actions/nix-format@v2
