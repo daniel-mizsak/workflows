@@ -5,7 +5,7 @@
 clean:
     rm -rf \
         megalinter-reports
-    find . -name ".DS_Store" -type f -delete
+    find . -type f -name ".DS_Store" -delete
 
 [group("qa-extra")]
 megalinter:

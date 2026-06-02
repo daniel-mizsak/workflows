@@ -3,14 +3,12 @@
   extends: [
     // See: https://docs.renovatebot.com/presets-config/#configbest-practices
     "config:recommended",
-    "docker:pinDigests",
     "helpers:pinGitHubActionDigests",
     ":configMigration",
     "abandonments:recommended",
   ],
 
   enabledManagers: [
-    "dockerfile",
     "github-actions",
     "pip_requirements",
     "pre-commit",
@@ -58,21 +56,16 @@
       matchPackageNames: ["daniel-mizsak/workflows"],
       enabled: false,
     },
-    // Group dockerfile dependencies in a single PR.
-    {
-      groupName: "Dependencies for dockerfile",
-      matchManagers: ["dockerfile"],
-    },
-    // Group pre-commit dependencies in a single PR.
-    {
-      groupName: "Dependencies for pre-commit",
-      matchManagers: ["pre-commit"],
-    },
     // Group pip_requirements dependencies in a single PR.
     {
       groupName: "Dependencies for pip_requirements",
       matchManagers: ["pip_requirements"],
       schedule: ["* 0-5 * * 1"], // First day of the week before 6am.
+    },
+    // Group pre-commit dependencies in a single PR.
+    {
+      groupName: "Dependencies for pre-commit",
+      matchManagers: ["pre-commit"],
     },
   ],
 

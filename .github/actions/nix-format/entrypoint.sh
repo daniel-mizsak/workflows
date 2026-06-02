@@ -1,17 +1,17 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash --packages alejandra
+#!nix-shell -i bash --packages nixfmt-tree
 # shellcheck shell=bash
 set -o pipefail
 
-LOGFILE_PATH=$(mktemp /tmp/alejandra.XXXXXX)
-cd "${INPUT_WORKING_DIRECTORY:-.}" || exit 1
-alejandra --check . 2>&1 | tee -a "${LOGFILE_PATH}"
+LOGFILE_PATH=$(mktemp /tmp/nixfmt.XXXXXX)
+cd "${WORKING_DIRECTORY:-.}" || exit 1
+treefmt . --ci 2>&1 | tee -a "${LOGFILE_PATH}"
 exitcode=$?
 
-# GitHub output stops at a standalone delimiter line. Generate delimiter that is not present in the logs.
+# GitHub output stops at a standalone delimiter line. Generate a delimiter that is not present in the logs.
 DELIMITER="EOF"
 while grep --fixed-strings --line-regexp --quiet "${DELIMITER}" "${LOGFILE_PATH}"; do
-    DELIMITER="alejandra_logs_$(date +%s%N)_${RANDOM}"
+    DELIMITER="nixfmt_logs_$(date +%s%N)_${RANDOM}"
 done
 
 {
