@@ -19,10 +19,10 @@ jobs:
   prek:
     permissions:
       contents: read
-    uses: ./.github/workflows/prek.yml
+    uses: $/.github/workflows/prek.yml
 
   lint:
     permissions:
       contents: read
       pull-requests: write
-    uses: ./.github/workflows/lint.yml
+    uses: $/.github/workflows/lint.yml
