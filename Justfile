@@ -9,7 +9,7 @@ clean:
 
 [group("qa-extra")]
 megalinter:
-    npx mega-linter-runner --flavor cupcake --env "MEGALINTER_CONFIG=.github/linters/.megalinter.yml"
+    npx mega-linter-runner --flavor ci_light --env "MEGALINTER_CONFIG=.github/linters/.megalinter.yml"
 
 [group("qa-extra")]
 prek:
