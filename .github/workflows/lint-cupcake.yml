@@ -1,11 +1,11 @@
 ---
-name: Lint
+name: Lint Cupcake
 
 on:
   workflow_call:
     inputs:
       megalinter-config:
-        description: "Path to megalinter config file"
+        description: "Path to MegaLinter config file"
         default: "./.github/linters/.megalinter.yml"
         type: string
 
@@ -23,8 +23,8 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Run megalinter
-        uses: oxsecurity/megalinter/flavors/ci_light@9949bad031045f366be2467e00e8371a7328a2e2 # v10.1.0
+      - name: Run MegaLinter
+        uses: oxsecurity/megalinter/flavors/cupcake@9949bad031045f366be2467e00e8371a7328a2e2 # v10.1.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MEGALINTER_CONFIG: ${{ inputs.megalinter-config }}

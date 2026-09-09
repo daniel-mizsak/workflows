@@ -9,7 +9,7 @@ jobs:
   prek:
     permissions:
       contents: read
-    uses: daniel-mizsak/workflows/.github/workflows/prek.yml@v2
+    uses: daniel-mizsak/workflows/.github/workflows/prek.yml@v3
     with:
       # Additional arguments passed to prek
       extra-args: "--all-files"

@@ -10,7 +10,7 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    uses: daniel-mizsak/workflows/.github/workflows/python-ci.yml@v2
+    uses: daniel-mizsak/workflows/.github/workflows/python-ci.yml@v3
     with:
       # Directory for running the workflow
       working-directory: "."

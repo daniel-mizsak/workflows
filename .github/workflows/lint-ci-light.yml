@@ -1,0 +1,32 @@
+---
+name: Lint CI Light
+
+on:
+  workflow_call:
+    inputs:
+      megalinter-config:
+        description: "Path to MegaLinter config file"
+        default: "./.github/linters/.megalinter.yml"
+        type: string
+
+permissions: {}
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Check out the codebase
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Run MegaLinter
+        uses: oxsecurity/megalinter/flavors/ci_light@9949bad031045f366be2467e00e8371a7328a2e2 # v10.1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MEGALINTER_CONFIG: ${{ inputs.megalinter-config }}
+
+          ACTION_ZIZMOR_UNSECURED_ENV_VARIABLES: GITHUB_TOKEN

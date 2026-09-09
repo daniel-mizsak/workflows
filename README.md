@@ -26,7 +26,8 @@ Workflows
 | Documentation                                                                                                                          | Content                                                                                                                              |
 | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/workflows/python-ci.md" target="_blank">python-ci documentation</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/workflows/python-ci.yml" target="_blank">python-ci content</a> |
-| <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/workflows/lint.md" target="_blank">lint documentation</a>           | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/workflows/lint.yml" target="_blank">lint content</a>           |
+| <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/workflows/lint-ci-light.md" target="_blank">lint-ci-light documentation</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/workflows/lint-ci-light.yml" target="_blank">lint-ci-light content</a> |
+| <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/workflows/lint-cupcake.md" target="_blank">lint-cupcake documentation</a> | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/workflows/lint-cupcake.yml" target="_blank">lint-cupcake content</a> |
 | <a href="https://github.com/daniel-mizsak/workflows/blob/main/docs/workflows/prek.md" target="_blank">prek documentation</a>           | <a href="https://github.com/daniel-mizsak/workflows/blob/main/.github/workflows/prek.yml" target="_blank">prek content</a>           |
 
 <hr>
