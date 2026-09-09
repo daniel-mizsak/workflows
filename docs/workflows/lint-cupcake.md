@@ -10,7 +10,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-    uses: daniel-mizsak/workflows/.github/workflows/lint-cupcake.yml@v2
+    uses: daniel-mizsak/workflows/.github/workflows/lint-cupcake.yml@v3
     with:
       # Path to MegaLinter config file
       megalinter-config: "./.github/linters/.megalinter.yml"
